@@ -14,6 +14,6 @@ namespace WebApiCoursesService.Models
     {
         public int deepness { get; set; }
         public int relaxing { get; set; }
-        public int sweet { get; set; }
+        public int sweetness { get; set; }
     }
 }

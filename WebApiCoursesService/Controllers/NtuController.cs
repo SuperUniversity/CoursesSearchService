@@ -26,19 +26,6 @@ namespace WebApiCoursesService.Controllers
             return result;
         }
 
-        //public IEnumerable<NtuCourseModel> GetBySearchAll(string query)
-        //{
-        //    MongoClient _client = new MongoClient();
-        //    var _database = _client.GetDatabase("SuperUniversityCourses");
-        //    var collection = _database.GetCollection<NtuCourseModel>("ntuTest");
-        //    var AllCollection = collection.AsQueryable<NtuCourseModel>().ToList();
-
-        //    var result = from c in AllCollection
-        //                 where c.授課教師.Contains(query)
-        //                 select c;
-        //    return result;
-        //}
-
         public IEnumerable<NtuCourseModel> GetBySearchEach(string coursename = null, string teachername = null, string department = null, string weekday = null)
         {
             var AllCollection = collection.GetAll()
