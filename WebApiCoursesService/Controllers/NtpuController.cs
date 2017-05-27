@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,101 +12,82 @@ namespace WebApiCoursesService.Controllers
 {
     public class NtpuController : ApiController
     {
+        private IRepository<NtpuCoursesModel> collection = new Repository<NtpuCoursesModel>("ntpuTest");
 
         // GET: api/SuccesssCourses
         public IEnumerable<NtpuCoursesModel> GetAll()
         {
-            var _client = new MongoClient();
-            var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NtpuCoursesModel>("ntpu");
-
-            var q = from c in collection.AsQueryable<NtpuCoursesModel>()
-                    select c;
-
-            return q.Take(500);
+            var result = collection.GetAll().Result.Take(500);
+            return result;
         }
 
         public IEnumerable<NtpuCoursesModel> GetBySearchAll(string query)
         {
-            var _client = new MongoClient();
-            var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NtpuCoursesModel>("ntpu");
-
-            var q = from c in collection.AsQueryable<NtpuCoursesModel>()
-                    where c.科目名稱.Contains(query) || c.授課教師.Contains(query) || c.開課系所.Contains(query) || c.備註.Contains(query)
-                    select c;
-
-            return q;
+            var Allcollection = collection.GetAll().Result;
+            var result =  Allcollection.Where(c => c.科目名稱.Contains(query) || c.授課教師.Contains(query) || c.開課系所.Contains(query) || c.備註.Contains(query));
+            return result;
         }
 
-        public IEnumerable<NtpuCoursesModel> GetByCourseName(string coursename)
+        public IEnumerable<NtpuCoursesModel> GetBySearchEach(string coursename=null, string teachername = null, string department = null, string weekday = null)
         {
-            var _client = new MongoClient();
-            var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NtpuCoursesModel>("ntpu");
+            var Allcollection = collection.GetAll().Result;
+            //TODO
+            var result = Allcollection.Where(c => (coursename != null) ? c.科目名稱.Contains(coursename) : true)
+                                    .Where(c => (teachername != null) ? c.授課教師.Contains(teachername) : true)
+                                    .Where(c => (department != null) ? c.開課系所.Contains(department) : true)
+                                    .Where(c => (weekday != null) ? c.上課時間教室.Contains(weekday) : true);
 
-            var q = from c in collection.AsQueryable<NtpuCoursesModel>()
-                    where c.科目名稱.Contains(coursename)
-                    select c;
-
-            return q;
-        }
-
-
-        public IEnumerable<NtpuCoursesModel> GetByTeacherName(string teachername)
-        {
-            var _client = new MongoClient();
-            var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NtpuCoursesModel>("ntpu");
-
-            var q = from c in collection.AsQueryable<NtpuCoursesModel>()
-                    where c.科目名稱.Contains(teachername)
-                    select c;
-
-            return q;
-        }
-
-        public IEnumerable<NtpuCoursesModel> GetByDepartment(string department)
-        {
-            var _client = new MongoClient();
-            var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NtpuCoursesModel>("ntpu");
-
-            var q = from c in collection.AsQueryable<NtpuCoursesModel>()
-                    where c.應修系級.Contains(department) || c.開課系所.Contains(department)
-                    select c;
-
-            return q;
-        }
-
-        public IEnumerable<NtpuCoursesModel> GetByWeekday(string weekday, int id)
-        {
-            var _client = new MongoClient();
-            var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NtpuCoursesModel>("ntpu");
-
-            var q = from c in collection.AsQueryable<NtpuCoursesModel>()
-                    where c.上課時間教室.Contains(weekday)
-                    select c;
-
-            return q;
-
+            return result;
         }
 
         // POST: api/Ntpu
-        public void Post([FromBody]string value)
+        public void Post(NtpuCoursesModel coursedata)
         {
-
+            collection.Insert(coursedata);
         }
 
         // PUT: api/Ntpu/5
-        public void Put(int id, [FromBody]string value)
+        public void PutComment(string strid, bool iscomment, Comment InputComment)
         {
+            NtpuCoursesModel TargetCourse = collection.GetByID(strid).Result;
+            List<Comment> OrginalCommentData = TargetCourse.commentdata;
+
+            if (OrginalCommentData == null)
+            {
+                List<Comment> InputCommentData = new List<Comment>();
+                InputCommentData.Add(InputComment);
+                collection.AddComment(strid, InputCommentData);
+            }
+            else
+            {
+                OrginalCommentData.Add(InputComment);
+                collection.AddComment(strid, OrginalCommentData);
+            }
+        }
+
+        public void PutRanking(string strid, bool isranking, Ranking InputRanking)
+        {
+            ObjectId id = new ObjectId(strid);
+            NtpuCoursesModel TargetCourse = collection.GetByID(strid).Result;
+            List<Ranking> OriginalRankingData = TargetCourse.rankingdata;
+
+            if(OriginalRankingData == null)
+            {
+                List<Ranking> NewRankingData = new List<Ranking>();
+                NewRankingData.Add(InputRanking);
+                collection.AddRanking(strid, NewRankingData);
+            }
+            else
+            {
+                OriginalRankingData.Add(InputRanking);
+                collection.AddRanking(strid, OriginalRankingData);
+            }
         }
 
         // DELETE: api/Ntpu/5
-        public void Delete(int id)
+        public void Delete(string strid)
         {
+            collection.Delete(strid);
         }
     }
 }

@@ -30,5 +30,9 @@ namespace WebApiCoursesService.Models
         public string 學分 { get; set; }
         public string 上課時間教室 { get; set; }
 
+        public List<Comment> commentdata { get; set; }
+        public List<Ranking> rankingdata { get; set; }
+        public DateTime lastModified { get; set; }
+
     }
 }

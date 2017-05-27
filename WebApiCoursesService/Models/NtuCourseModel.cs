@@ -28,5 +28,10 @@ namespace WebApiCoursesService.Models
         public string 流水號 { get; set; }
         public string 加選方式 { get; set; }
         public string 課程識別碼 { get; set; }
+
+
+        public List<Comment> commentdata { get; set; }
+        public List<Ranking> rankingdata { get; set; }
+        public DateTime lastModified { get; set; }
     }
 }

@@ -31,7 +31,8 @@ namespace WebApiCoursesService.Models
 
         public async Task<IEnumerable<T>> GetAll()
         {
-            return await collection.AsQueryable<T>().ToListAsync();
+            var result = await collection.AsQueryable<T>().ToListAsync();
+            return result;
         }
 
         //public IEnumerable<T> GetBySearchAll(string query)
@@ -64,22 +65,32 @@ namespace WebApiCoursesService.Models
             await collection.InsertOneAsync(coursedata);
         }
 
-        //public void AddComment(string strid, bool iscomment, Comment comment)
-        //{
-
-        //}
-
-        //public void AddRanking(string strid, bool isranking, Ranking ranking)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        public async void Update(string strid, T UpdatedCoursedata)
+        public async void AddComment(string strid, List<Comment> InputCommentData)
         {
             ObjectId id = new ObjectId(strid);
             var filter = Builders<T>.Filter.Eq("_id", id);
-            await collection.ReplaceOneAsync(filter, UpdatedCoursedata);
+            UpdateDefinition<T> update = Builders<T>.Update
+                                                    .Set("commentdata", InputCommentData)
+                                                    .CurrentDate("lastModified");
+            var result = await collection.UpdateOneAsync(filter, update);
         }
+
+        public async void AddRanking(string strid, List<Ranking> InputRankingData)
+        {
+            ObjectId id = new ObjectId(strid);
+            var filter = Builders<T>.Filter.Eq("_id", id);
+            UpdateDefinition<T> update = Builders<T>.Update
+                                                    .Set("rankingdata", InputRankingData)
+                                                    .CurrentDate("lastModified");
+            var result = await collection.UpdateOneAsync(filter, update);
+        }
+
+        //public async void Update(string strid, T UpdatedCoursedata)
+        //{
+        //    ObjectId id = new ObjectId(strid);
+        //    var filter = Builders<T>.Filter.Eq("_id", id);
+        //    await collection.ReplaceOneAsync(filter, UpdatedCoursedata);
+        //}
 
         public async void Delete(string strid)
         {
