@@ -15,12 +15,6 @@ namespace WebApiCoursesService.Controllers
         private IRepository<NtpuCoursesModel> collection = new Repository<NtpuCoursesModel>("ntpuTest");
 
         // GET: api/SuccesssCourses
-        //public IEnumerable<NtpuCoursesModel> GetAll()
-        //{
-        //    var result = collection.GetAll().Result.Take(500);
-        //    return result;
-        //}
-
         public IEnumerable<NtpuCoursesModel> GetBySearchAll(string query)
         {
             var AllCollection = collection.GetAll();
@@ -31,12 +25,11 @@ namespace WebApiCoursesService.Controllers
         public IEnumerable<NtpuCoursesModel> GetBySearchEach(string coursename=null, string teachername = null, string department = null, string weekday = null)
         {
             var AllCollection = collection.GetAll();
-            //TODO
             var result = AllCollection.Where(c => (coursename != null) ? c.科目名稱.Contains(coursename) : true)
                                     .Where(c => (teachername != null) ? c.授課教師.Contains(teachername) : true)
                                     .Where(c => (department != null) ? c.開課系所.Contains(department) : true)
                                     .Where(c => (weekday != null) ? c.上課時間教室.Contains(weekday) : true);
-            return result.Take(500);
+            return result;
         }
 
         // POST: api/Ntpu

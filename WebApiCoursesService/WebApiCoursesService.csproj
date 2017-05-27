@@ -208,9 +208,9 @@
     <Compile Include="Areas\RouteDebugger\RouteDebuggerAreaRegistration.cs" />
     <Compile Include="Areas\RouteDebugger\RouteDebuggerConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NckuController.cs" />
     <Compile Include="Controllers\NtpuController.cs" />
     <Compile Include="Controllers\NtuController.cs" />
-    <Compile Include="Controllers\NckuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

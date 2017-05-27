@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,104 +12,75 @@ namespace WebApiCoursesService.Controllers
 {
     public class NtuController : ApiController
     {
-        // GET api/values
-        public IEnumerable<NtuCourseModel> GetAll()
-        {
-            var _client = new MongoClient();
-            var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NtuCourseModel>("ntu");
-
-            var q = from c in collection.AsQueryable<NtuCourseModel>()
-                    select c;
-
-            return q.Take(500);
-            //return q;
-        }
+        private IRepository<NtuCourseModel> collection = new Repository<NtuCourseModel>("ntu");
 
         // GET api/values/5
         public IEnumerable<NtuCourseModel> GetBySearchAll(string query)
         {
-            //課程名稱，授課教師，授課對象，備註，選課限制條件
-            var _client = new MongoClient();
-            var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NtuCourseModel>("ntu");
-
-            var q = from c in collection.AsQueryable<NtuCourseModel>()
-                    where c.課程名稱.Contains(query) || c.授課教師.Contains(query) || c.授課對象.Contains(query) || c.備註.Contains(query)
-                    select c;
-
-            return q;
+            //課程名稱，授課教師，授課對象，備註
+            var AllCollection = collection.GetAll();
+            var result = AllCollection.Where(c => c.課程名稱.Contains(query) || c.授課教師.Contains(query) || c.授課對象.Contains(query) || c.備註.Contains(query));
+            return result;
         }
 
-        public IEnumerable<NtuCourseModel> GetByCourseName(string coursename)
+        public IEnumerable<NtuCourseModel> GetBySearchEach(string coursename = null, string teachername = null, string department = null, string weekday = null)
         {
-            var _client = new MongoClient();
-            var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NtuCourseModel>("ntu");
-
-            var q = from c in collection.AsQueryable<NtuCourseModel>()
-                    where c.課程名稱.Contains(coursename)
-                    select c;
-
-            return q;
+            var AllCollection = collection.GetAll();
+            var result = AllCollection.Where(c => (coursename != null) ? c.課程名稱.Contains(coursename) : true)
+                                    .Where(c => (teachername != null) ? c.授課教師.Contains(teachername) : true)
+                                    .Where(c => (department != null) ? c.授課對象.Contains(department) : true)
+                                    .Where(c => (weekday != null) ? c.時間教室.Contains(weekday) : true);
+            return result;
         }
-
-        public IEnumerable<NtuCourseModel> GetByTeacherName(string teachername)
-        {
-            var _client = new MongoClient();
-            var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NtuCourseModel>("ntu");
-
-            var q = from c in collection.AsQueryable<NtuCourseModel>()
-                    where c.授課教師.Contains(teachername)
-                    select c;
-
-            return q;
-        }
-
-        public IEnumerable<NtuCourseModel> GetByDepartment(string department)
-        {
-            var _client = new MongoClient();
-            var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NtuCourseModel>("ntu");
-
-            var q = from c in collection.AsQueryable<NtuCourseModel>()
-                    where c.授課對象.Contains(department)
-                    select c;
-
-            return q;
-        }
-
-        public IEnumerable<NtuCourseModel> GetByWeekday(string weekday)
-        {
-            var _client = new MongoClient();
-            var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NtuCourseModel>("ntu");
-
-            var q = from c in collection.AsQueryable<NtuCourseModel>()
-                    where c.時間教室.Contains(weekday)
-                    select c;
-
-            return q;
-        }
-
 
         // POST api/values
-        public void Post([FromBody]string value)
+        public void Post(NtuCourseModel coursedata)
         {
-
-
-
+            collection.Insert(coursedata);
         }
 
         // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        public void PutComment(string strid, bool iscomment, Comment InputComment)
         {
+            NtuCourseModel TargetCourse = collection.GetByID(strid);
+            List<Comment> OrginalCommentData = TargetCourse.commentdata;
+
+            if (OrginalCommentData == null)
+            {
+                List<Comment> InputCommentData = new List<Comment>();
+                InputCommentData.Add(InputComment);
+                collection.AddComment(strid, InputCommentData);
+            }
+            else
+            {
+                OrginalCommentData.Add(InputComment);
+                collection.AddComment(strid, OrginalCommentData);
+            }
+        }
+
+        public void PutRanking(string strid, bool isranking, Ranking InputRanking)
+        {
+            ObjectId id = new ObjectId(strid);
+            NtuCourseModel TargetCourse = collection.GetByID(strid);
+            List<Ranking> OriginalRankingData = TargetCourse.rankingdata;
+
+            if (OriginalRankingData == null)
+            {
+                List<Ranking> NewRankingData = new List<Ranking>();
+                NewRankingData.Add(InputRanking);
+                collection.AddRanking(strid, NewRankingData);
+            }
+            else
+            {
+                OriginalRankingData.Add(InputRanking);
+                collection.AddRanking(strid, OriginalRankingData);
+            }
         }
 
         // DELETE api/values/5
-        public void Delete(int id)
+        public void Delete(string strid)
         {
+            collection.Delete(strid);
         }
     }
 }
