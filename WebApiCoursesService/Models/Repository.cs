@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace WebApiCoursesService.Models
@@ -20,17 +21,17 @@ namespace WebApiCoursesService.Models
             collection = _database.GetCollection<T>(collectionname);
         }
 
-        public T GetByID(string strid)
+        public async Task<T> GetByID(string strid)
         {
             ObjectId id = new ObjectId(strid);
             var filter = Builders<T>.Filter.Eq("_id", id);
             
-            return collection.Find(filter).FirstOrDefault();
+            return await collection.Find(filter).FirstOrDefaultAsync();
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
-            return collection.AsQueryable<T>().ToList();
+            return await collection.AsQueryable<T>().ToListAsync();
         }
 
         //public IEnumerable<T> GetBySearchAll(string query)

@@ -8,8 +8,10 @@ namespace WebApiCoursesService.Models
 {
     public interface IRepository<T>
     {
+        Task<T> GetByID(string strid);
+
         // GET: api/SuccesssCourses
-        IEnumerable<T> GetAll();
+        Task<IEnumerable<T>> GetAll();
 
         //IEnumerable<T> GetBySearchAll(string query);
 
@@ -21,7 +23,6 @@ namespace WebApiCoursesService.Models
 
         //IEnumerable<T> GetByWeekday(string Weekday);
 
-        T GetByID(string strid);
 
         // POST: api/SuccesssCourses(insert)
         void Insert(T coursedata);
