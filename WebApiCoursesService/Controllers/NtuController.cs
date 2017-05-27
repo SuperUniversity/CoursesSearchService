@@ -12,20 +12,42 @@ namespace WebApiCoursesService.Controllers
 {
     public class NtuController : ApiController
     {
-        private IRepository<NtuCourseModel> collection = new Repository<NtuCourseModel>("ntu");
+        private IRepository<NtuCourseModel> collection = new Repository<NtuCourseModel>("ntuTest");
 
-        // GET api/values/5
+        //GET api/values/5
         public IEnumerable<NtuCourseModel> GetBySearchAll(string query)
         {
+            var AllCollection = collection.GetAll()
+                    .Where(c => c.課程名稱 != null && c.授課教師 != null && c.授課對象 != null && c.備註 != null);
+
             //課程名稱，授課教師，授課對象，備註
-            var AllCollection = collection.GetAll();
             var result = AllCollection.Where(c => c.課程名稱.Contains(query) || c.授課教師.Contains(query) || c.授課對象.Contains(query) || c.備註.Contains(query));
+
             return result;
         }
 
+        //public IEnumerable<NtuCourseModel> GetBySearchAll(string query)
+        //{
+        //    MongoClient _client = new MongoClient();
+        //    var _database = _client.GetDatabase("SuperUniversityCourses");
+        //    var collection = _database.GetCollection<NtuCourseModel>("ntuTest");
+        //    var AllCollection = collection.AsQueryable<NtuCourseModel>().ToList();
+
+        //    var result = from c in AllCollection
+        //                 where c.授課教師.Contains(query)
+        //                 select c;
+        //    return result;
+        //}
+
         public IEnumerable<NtuCourseModel> GetBySearchEach(string coursename = null, string teachername = null, string department = null, string weekday = null)
         {
-            var AllCollection = collection.GetAll();
+            var AllCollection = collection.GetAll()
+                //.Where(c => c.課程名稱 != null&& c.授課教師 != null && c.授課對象 != null && c.時間教室 != null);
+                                    .Where(c => (coursename != null) ? c.課程名稱 != null : true)
+                                    .Where(c => (teachername != null) ? c.授課教師 != null : true)
+                                    .Where(c => (department != null) ? c.授課對象 != null : true)
+                                    .Where(c => (weekday != null) ? c.時間教室 != null : true);
+
             var result = AllCollection.Where(c => (coursename != null) ? c.課程名稱.Contains(coursename) : true)
                                     .Where(c => (teachername != null) ? c.授課教師.Contains(teachername) : true)
                                     .Where(c => (department != null) ? c.授課對象.Contains(department) : true)

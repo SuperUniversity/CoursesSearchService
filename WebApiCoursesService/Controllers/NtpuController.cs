@@ -17,14 +17,21 @@ namespace WebApiCoursesService.Controllers
         // GET: api/SuccesssCourses
         public IEnumerable<NtpuCoursesModel> GetBySearchAll(string query)
         {
-            var AllCollection = collection.GetAll();
+            var AllCollection = collection.GetAll()
+                                .Where(c => c.科目名稱 != null && c.授課教師 != null && c.開課系所 != null && c.備註 != null);
+            
             var result = AllCollection.Where(c => c.科目名稱.Contains(query) || c.授課教師.Contains(query) || c.開課系所.Contains(query) || c.備註.Contains(query));
             return result;
         }
 
         public IEnumerable<NtpuCoursesModel> GetBySearchEach(string coursename=null, string teachername = null, string department = null, string weekday = null)
         {
-            var AllCollection = collection.GetAll();
+            var AllCollection = collection.GetAll()
+                                    .Where(c => (coursename != null) ? c.科目名稱 != null : true)
+                                    .Where(c => (teachername != null) ? c.授課教師 != null : true)
+                                    .Where(c => (department != null) ? c.開課系所 != null : true)
+                                    .Where(c => (weekday != null) ? c.上課時間教室 != null : true);
+
             var result = AllCollection.Where(c => (coursename != null) ? c.科目名稱.Contains(coursename) : true)
                                     .Where(c => (teachername != null) ? c.授課教師.Contains(teachername) : true)
                                     .Where(c => (department != null) ? c.開課系所.Contains(department) : true)
