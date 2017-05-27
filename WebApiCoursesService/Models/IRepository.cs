@@ -8,20 +8,13 @@ namespace WebApiCoursesService.Models
 {
     public interface IRepository<T>
     {
-        Task<T> GetByID(string strid);
+        //Todo
+        //Task<T> GetByID(string strid);
+        T GetByID(string strid);
 
-        // GET: api/SuccesssCourses
-        Task<IEnumerable<T>> GetAll();
-
-        //IEnumerable<T> GetBySearchAll(string query);
-
-        //IEnumerable<T> GetByCourseName(string coursename);
-
-        //IEnumerable<T> GetByTeacherName(string teachername);
-
-        //IEnumerable<T> GetByDepartment(string department);
-
-        //IEnumerable<T> GetByWeekday(string Weekday);
+        //Todo
+        //Task<IEnumerable<T>> GetAll()
+        IEnumerable<T> GetAll();
 
 
         // POST: api/SuccesssCourses(insert)

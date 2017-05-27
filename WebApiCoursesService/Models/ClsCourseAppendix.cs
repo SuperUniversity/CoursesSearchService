@@ -12,7 +12,7 @@ namespace WebApiCoursesService.Models
     }
     public class Ranking
     {
-        public int deep { get; set; }
+        public int deepness { get; set; }
         public int relaxing { get; set; }
         public int sweet { get; set; }
     }

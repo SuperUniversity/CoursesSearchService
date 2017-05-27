@@ -21,49 +21,45 @@ namespace WebApiCoursesService.Models
             collection = _database.GetCollection<T>(collectionname);
         }
 
-        public async Task<T> GetByID(string strid)
+        //Todo
+        //public async Task<T> GetByID(string strid)
+        //{
+        //    ObjectId id = new ObjectId(strid);
+        //    var filter = Builders<T>.Filter.Eq("_id", id);
+            
+        //    return await collection.Find(filter).FirstOrDefaultAsync();
+        //}
+
+        public T GetByID(string strid)
         {
             ObjectId id = new ObjectId(strid);
             var filter = Builders<T>.Filter.Eq("_id", id);
-            
-            return await collection.Find(filter).FirstOrDefaultAsync();
+
+            return collection.Find(filter).FirstOrDefault();
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        //public async Task<IEnumerable<T>> GetAll()
+        //{
+        //    var result = collection.AsQueryable<T>().ToListAsync();
+        //    return await result;
+        //}
+
+        public IEnumerable<T> GetAll()
         {
-            var result = await collection.AsQueryable<T>().ToListAsync();
+            var result = collection.AsQueryable<T>().ToList();
             return result;
         }
 
-        //public IEnumerable<T> GetBySearchAll(string query)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public IEnumerable<T> GetByCourseName(string coursename)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public IEnumerable<T> GetByTeacherName(string teachername)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public IEnumerable<T> GetByDepartment(string department)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public IEnumerable<T> GetByWeekday(string Weekday)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         public async void Insert(T coursedata)
         {
             await collection.InsertOneAsync(coursedata);
         }
+
+        //public void Insert(T coursedata)
+        //{
+        //    collection.InsertOne(coursedata);
+        //}
 
         public async void AddComment(string strid, List<Comment> InputCommentData)
         {

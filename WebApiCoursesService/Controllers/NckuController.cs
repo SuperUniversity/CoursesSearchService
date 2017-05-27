@@ -18,7 +18,7 @@ namespace WebApiCoursesService.Controllers
         {
             var _client = new MongoClient();
             var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NckuCourseModel>("ncku");
+            var collection = _database.GetCollection<NckuCourseModel>("nckuTest");
 
             var q = from c in collection.AsQueryable<NckuCourseModel>()
                     select c;
@@ -30,7 +30,7 @@ namespace WebApiCoursesService.Controllers
         {
             var _client = new MongoClient();
             var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NckuCourseModel>("ncku");
+            var collection = _database.GetCollection<NckuCourseModel>("nckuTest");
 
             var q = from c in collection.AsQueryable<NckuCourseModel>()
                     where c.課程名稱.Contains(query) || c.教師姓名.Contains(query) || c.系所名稱.Contains(query) || c.備註.Contains(query)
@@ -43,7 +43,7 @@ namespace WebApiCoursesService.Controllers
         {
             var _client = new MongoClient();
             var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NckuCourseModel>("ncku");
+            var collection = _database.GetCollection<NckuCourseModel>("nckuTest");
 
             var q = from c in collection.AsQueryable<NckuCourseModel>()
                     where c.課程名稱.Contains(coursename)
@@ -57,7 +57,7 @@ namespace WebApiCoursesService.Controllers
         {
             var _client = new MongoClient();
             var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NckuCourseModel>("ncku");
+            var collection = _database.GetCollection<NckuCourseModel>("nckuTest");
 
             var q = from c in collection.AsQueryable<NckuCourseModel>()
                      where c.教師姓名.Contains(teachername)
@@ -70,7 +70,7 @@ namespace WebApiCoursesService.Controllers
         {
             var _client = new MongoClient();
             var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NckuCourseModel>("ncku");
+            var collection = _database.GetCollection<NckuCourseModel>("nckuTest");
 
 
             var q = from c in collection.AsQueryable<NckuCourseModel>()
@@ -86,7 +86,7 @@ namespace WebApiCoursesService.Controllers
         {
             var _client = new MongoClient();
             var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NckuCourseModel>("ncku");
+            var collection = _database.GetCollection<NckuCourseModel>("nckuTest");
 
 
             var q = (from c in collection.AsQueryable<NckuCourseModel>()
@@ -99,7 +99,7 @@ namespace WebApiCoursesService.Controllers
         {
             var _client = new MongoClient();
             var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NckuCourseModel>("ncku");
+            var collection = _database.GetCollection<NckuCourseModel>("nckuTest");
 
             ObjectId Objid = new ObjectId(strid);
             var q = (from c in collection.AsQueryable<NckuCourseModel>()
@@ -114,7 +114,7 @@ namespace WebApiCoursesService.Controllers
         {
             var _client = new MongoClient();
             var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NckuCourseModel>("ncku");
+            var collection = _database.GetCollection<NckuCourseModel>("nckuTest");
             await collection.InsertOneAsync(coursedata);
         }
 
@@ -161,7 +161,7 @@ namespace WebApiCoursesService.Controllers
             //id 前面加上[FromBody]，表示要從 HTTP POST 內文來取得參數值：
             var _client = new MongoClient();
             var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NckuCourseModel>("ncku");
+            var collection = _database.GetCollection<NckuCourseModel>("nckuTest");
 
             ObjectId Objid = new ObjectId(strid);
             var filter = Builders<NckuCourseModel>.Filter.Eq("_id", Objid);
@@ -193,12 +193,12 @@ namespace WebApiCoursesService.Controllers
         public async void PutRanking(string strid, int sweet,int relaxing, int deep)
         {
 
-            Ranking ranking = new Ranking() { relaxing = relaxing, deep = deep, sweet = sweet };
+            Ranking ranking = new Ranking() { relaxing = relaxing, deepness = deep, sweet = sweet };
 
             //id 前面加上[FromBody]，表示要從 HTTP POST 內文來取得參數值：
             var _client = new MongoClient();
             var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NckuCourseModel>("ncku");
+            var collection = _database.GetCollection<NckuCourseModel>("nckuTest");
 
             ObjectId Objid = new ObjectId(strid);
             var filter = Builders<NckuCourseModel>.Filter.Eq("_id", Objid);
@@ -297,7 +297,7 @@ namespace WebApiCoursesService.Controllers
         {
             var _client = new MongoClient();
             var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NckuCourseModel>("ncku");
+            var collection = _database.GetCollection<NckuCourseModel>("nckuTest");
 
             ObjectId Objid = new ObjectId(strid);
             var filter = Builders<NckuCourseModel>.Filter.Eq("_id", Objid);

@@ -15,29 +15,28 @@ namespace WebApiCoursesService.Controllers
         private IRepository<NtpuCoursesModel> collection = new Repository<NtpuCoursesModel>("ntpuTest");
 
         // GET: api/SuccesssCourses
-        public IEnumerable<NtpuCoursesModel> GetAll()
-        {
-            var result = collection.GetAll().Result.Take(500);
-            return result;
-        }
+        //public IEnumerable<NtpuCoursesModel> GetAll()
+        //{
+        //    var result = collection.GetAll().Result.Take(500);
+        //    return result;
+        //}
 
         public IEnumerable<NtpuCoursesModel> GetBySearchAll(string query)
         {
-            var Allcollection = collection.GetAll().Result;
-            var result =  Allcollection.Where(c => c.科目名稱.Contains(query) || c.授課教師.Contains(query) || c.開課系所.Contains(query) || c.備註.Contains(query));
+            var AllCollection = collection.GetAll();
+            var result = AllCollection.Where(c => c.科目名稱.Contains(query) || c.授課教師.Contains(query) || c.開課系所.Contains(query) || c.備註.Contains(query));
             return result;
         }
 
         public IEnumerable<NtpuCoursesModel> GetBySearchEach(string coursename=null, string teachername = null, string department = null, string weekday = null)
         {
-            var Allcollection = collection.GetAll().Result;
+            var AllCollection = collection.GetAll();
             //TODO
-            var result = Allcollection.Where(c => (coursename != null) ? c.科目名稱.Contains(coursename) : true)
+            var result = AllCollection.Where(c => (coursename != null) ? c.科目名稱.Contains(coursename) : true)
                                     .Where(c => (teachername != null) ? c.授課教師.Contains(teachername) : true)
                                     .Where(c => (department != null) ? c.開課系所.Contains(department) : true)
                                     .Where(c => (weekday != null) ? c.上課時間教室.Contains(weekday) : true);
-
-            return result;
+            return result.Take(500);
         }
 
         // POST: api/Ntpu
@@ -49,7 +48,7 @@ namespace WebApiCoursesService.Controllers
         // PUT: api/Ntpu/5
         public void PutComment(string strid, bool iscomment, Comment InputComment)
         {
-            NtpuCoursesModel TargetCourse = collection.GetByID(strid).Result;
+            NtpuCoursesModel TargetCourse = collection.GetByID(strid);
             List<Comment> OrginalCommentData = TargetCourse.commentdata;
 
             if (OrginalCommentData == null)
@@ -68,10 +67,10 @@ namespace WebApiCoursesService.Controllers
         public void PutRanking(string strid, bool isranking, Ranking InputRanking)
         {
             ObjectId id = new ObjectId(strid);
-            NtpuCoursesModel TargetCourse = collection.GetByID(strid).Result;
+            NtpuCoursesModel TargetCourse = collection.GetByID(strid);
             List<Ranking> OriginalRankingData = TargetCourse.rankingdata;
 
-            if(OriginalRankingData == null)
+            if (OriginalRankingData == null)
             {
                 List<Ranking> NewRankingData = new List<Ranking>();
                 NewRankingData.Add(InputRanking);
