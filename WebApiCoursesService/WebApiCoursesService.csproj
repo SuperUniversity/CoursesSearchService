@@ -217,6 +217,11 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\wordclouds\all200.jpg" />
+    <Content Include="Images\wordclouds\all300.jpg" />
+    <Content Include="Images\wordclouds\ncku.jpg" />
+    <Content Include="Images\wordclouds\ntpu.jpg" />
+    <Content Include="Images\wordclouds\ntu.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
