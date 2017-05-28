@@ -23,9 +23,10 @@ namespace WebApiCoursesService.Models
                 Credentials = new List<MongoCredential> { credential }
             };
             MongoClient _client = new MongoClient(mongoClientSettings);
-
-            //_database = _client.GetDatabase("SuperUniversityCourses");
             _database = _client.GetDatabase("superuniversitycourses");
+
+            //MongoClient _client = new MongoClient();
+            //_database = _client.GetDatabase("SuperUniversityCourses");
             collection = _database.GetCollection<T>(collectionname);
         }
 

@@ -1,29 +1,54 @@
 ﻿@section styles{
+    <style>
 
+    </style>
 
 }
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>University Courses Search Engine</h1>
+    <p class="lead">I collect all courses from three universities' websites to build this api, to search course you can use query string after the host. You can freely search by coursename, teachername, department and weekday in three domains(Ntu, Ntpu and Ncku).</p>
+    <p>@*<a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a>*@</p>
+</div>
+<div class="col-md-12">
+    <img src="~/Images/wordclouds/all200.jpg" class="img-responsive" />
+    @*<img src="~/Images/wordclouds/all300.jpg" class="img-responsive" />*@
 </div>
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
+        <h2>NTU</h2>
+        <img src="~/Images/wordclouds/ntu.jpg" class="img-responsive"/>
+        <h4><a href="~/api/Ntu">All courses</a></h4>
+        <h4><a href="~/api/Ntu?query=稅">Search by all columns</a></h4>
+        <h4><a href="~/api/Ntu?coursename=稅">Search by coursename</a></h4>
+        <h4><a href="~/api/Ntu?coursename=學&teachername=陳">Search by coursename and teachername</a></h4>
+        <h4><a href="~/api/Ntu?coursename=學&teachername=陳&weekday=三">Search by coursename, teachername and weekday</a></h4>
+        <h4><a href="~/api/Ntu?coursename=學&teachername=陳&weekday=三&department=經">Search by coursename, teachername, weekday and department</a></h4>
+        @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>*@
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
+        <h2>NTPU</h2>
+        <img src="~/Images/wordclouds/ntpu.jpg" class="img-responsive" />
+        <h4><a href="~/api/Ntpu">All courses</a></h4>
+        <h4><a href="~/api/Ntpu?query=稅">Search by all columns</a></h4>
+        <h4><a href="~/api/Ntpu?coursename=稅">Search by coursename</a></h4>
+        <h4><a href="~/api/Ntpu?coursename=學&teachername=陳">Search by coursename and teachername</a></h4>
+        <h4><a href="~/api/Ntpu?coursename=學&teachername=陳&weekday=三">Search by coursename, teachername and weekday</a></h4>
+        <h4><a href="~/api/Ntpu?coursename=學&teachername=陳&weekday=三&department=經">Search by coursename, teachername, weekday and department</a></h4>
+
+        @*<p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>*@
+        <p>@*<a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a>*@</p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
+        <h2>NCKU</h2>
+        <img src="~/Images/wordclouds/ncku.jpg" class="img-responsive" />
+        <h4><a href="~/api/Ncku">All courses</a></h4>
+        <h4><a href="~/api/Ncku?query=稅">Search by all columns</a></h4>
+        <h4><a href="~/api/Ncku?coursename=稅">Search by coursename</a></h4>
+        <h4><a href="~/api/Ncku?coursename=學&teachername=陳">Search by coursename and teachername</a></h4>
+        <h4><a href="~/api/Ncku?coursename=學&teachername=陳&weekday=三">Search by coursename, teachername and weekday</a></h4>
+        <h4><a href="~/api/Ncku?coursename=學&teachername=陳&weekday=三&department=經">Search by coursename, teachername, weekday and department</a></h4>
+        @*<p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>*@
+        @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>*@
     </div>
 </div>
 @section scripts{
