@@ -196,7 +196,7 @@ namespace WindowsFormsTest
             var cursor = collection.Find(filter);
 
             //string name = cursor.FirstOrDefault().教師姓名;
-            List<string> comments = cursor.FirstOrDefault().comment;
+            List<Comment> comments = cursor.FirstOrDefault().commentdata;
             //bool exist = comments == null;
             //MessageBox.Show( comments + " " + exist);
 
@@ -226,6 +226,30 @@ namespace WindowsFormsTest
 
 
             collection.ToJson().ToList();
+
+        }
+
+        private void Mlab_Click(object sender, EventArgs e)
+        {
+            //MongoUrl url = new MongoUrl("mongodb://jeremy4555:P@ssw0rd@ds155841.mlab.com:55841/superuniversitycourses");
+            //MongoClient _client = new MongoClient(url);
+
+            var credential = MongoCredential.CreateCredential("superuniversitycourses", "jeremy4555", "P@ssw0rd");
+            var mongoClientSettings = new MongoClientSettings
+            {
+                Server = new MongoServerAddress("ds155841.mlab.com", 55841),
+                Credentials = new List<MongoCredential> { credential }
+            };
+
+            MongoClient _client = new MongoClient(mongoClientSettings);
+            IMongoDatabase _database = _client.GetDatabase("superuniversitycourses");
+            IMongoCollection<NtpuCoursesModel> collection = _database.GetCollection<NtpuCoursesModel>("ntpuTest");
+
+            ObjectId id = new ObjectId("59253ad699eff6165cead28d");
+            string teststring = collection.AsQueryable<NtpuCoursesModel>().Where(c => c._id==id).FirstOrDefault().開課系所;
+            MessageBox.Show(teststring);
+
+
 
         }
     }

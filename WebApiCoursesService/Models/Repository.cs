@@ -10,14 +10,22 @@ namespace WebApiCoursesService.Models
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-
-        MongoClient _client = new MongoClient();
         IMongoDatabase _database = null;
         IMongoCollection<T> collection = null;
 
         public Repository(string collectionname)
         {
-            _database = _client.GetDatabase("SuperUniversityCourses");
+
+            MongoCredential credential = MongoCredential.CreateCredential("superuniversitycourses", "jeremy4555", "P@ssw0rd");
+            MongoClientSettings mongoClientSettings = new MongoClientSettings
+            {
+                Server = new MongoServerAddress("ds155841.mlab.com", 55841),
+                Credentials = new List<MongoCredential> { credential }
+            };
+            MongoClient _client = new MongoClient(mongoClientSettings);
+
+            //_database = _client.GetDatabase("SuperUniversityCourses");
+            _database = _client.GetDatabase("superuniversitycourses");
             collection = _database.GetCollection<T>(collectionname);
         }
 

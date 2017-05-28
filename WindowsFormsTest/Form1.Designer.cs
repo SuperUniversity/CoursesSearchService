@@ -36,6 +36,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.Find = new System.Windows.Forms.Button();
             this.GetAll = new System.Windows.Forms.Button();
+            this.Mlab = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -118,11 +119,22 @@
             this.GetAll.UseVisualStyleBackColor = true;
             this.GetAll.Click += new System.EventHandler(this.GetAll_Click);
             // 
+            // Mlab
+            // 
+            this.Mlab.Location = new System.Drawing.Point(753, 163);
+            this.Mlab.Name = "Mlab";
+            this.Mlab.Size = new System.Drawing.Size(216, 72);
+            this.Mlab.TabIndex = 8;
+            this.Mlab.Text = "Connect to mlab";
+            this.Mlab.UseVisualStyleBackColor = true;
+            this.Mlab.Click += new System.EventHandler(this.Mlab_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(922, 519);
+            this.ClientSize = new System.Drawing.Size(1066, 519);
+            this.Controls.Add(this.Mlab);
             this.Controls.Add(this.GetAll);
             this.Controls.Add(this.Find);
             this.Controls.Add(this.button6);
@@ -148,6 +160,7 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button Find;
         private System.Windows.Forms.Button GetAll;
+        private System.Windows.Forms.Button Mlab;
     }
 }
 
