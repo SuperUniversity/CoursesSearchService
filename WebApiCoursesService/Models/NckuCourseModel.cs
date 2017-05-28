@@ -10,25 +10,23 @@ namespace WebApiCoursesService.Models
     public class NckuCourseModel
     {
         public string 課程名稱 { get; set; }
-        public string 年級 { get; set; }
+        public string 教師姓名 { get; set; }
+        public string 系所名稱 { get; set; }
         public string 班別 { get; set; }
         public string 組別 { get; set; }
+        public string 年級 { get; set; }
+
         //[BsonSerializer(typeof(MyBsonSerializer))]
         public string 已選課人數 { get; set; }
-        //public int 已選課人數 { get; set; }
 
         //[BsonSerializer(typeof(MyBsonSerializer))]
         public string 餘額 { get; set; }
-        //public int 餘額 { get; set; }
-        public string 教師姓名 { get; set; }
         public string 時間 { get; set; }
         public string 教室 { get; set; }
 
         //[BsonSerializer(typeof(MyBsonSerializer))]
         public string 學分 { get; set; }
-        //public int 學分 { get; set; }
         public string 選必修 { get; set; }
-        public string 系所名稱 { get; set; }
         public string 限選條件 { get; set; }
         public string 英語授課 { get; set; }
         public string 跨領域學分學程 { get; set; }
