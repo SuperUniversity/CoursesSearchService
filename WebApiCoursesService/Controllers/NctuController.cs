@@ -11,7 +11,7 @@ namespace WebApiCoursesService.Controllers
 {
     public class NctuController : ApiController
     {
-        private IRepository<NctuCourseModel> collection = new Repository<NctuCourseModel>("ntpuTest");
+        private IRepository<NctuCourseModel> collection = new Repository<NctuCourseModel>("NctuTest");
 
         // GET: api/SuccesssCourses
         public IEnumerable<NctuCourseModel> GetBySearchAll(string query)
@@ -25,7 +25,7 @@ namespace WebApiCoursesService.Controllers
 
         public IEnumerable<NctuCourseModel> GetBySearchEach(string coursename = null, string teachername = null, string department = null, string weekday = null)
         {
-            //Todo 沒有開課系所這個爛為
+            //Todo 沒有開課系所這個欄位
             var AllCollection = collection.GetAll()
                                     .Where(c => (coursename != null) ? c.課程名稱 != null : true)
                                     .Where(c => (teachername != null) ? c.開課教師 != null : true)
