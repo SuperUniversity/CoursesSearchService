@@ -83,9 +83,9 @@ namespace WindowsFormsTest
         {
             var _client = new MongoClient();
             var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NtpuCoursesModel>("ntpu");
+            var collection = _database.GetCollection<NtpuCourseModel>("ntpu");
 
-            var q = (from c in collection.AsQueryable<NtpuCoursesModel>()
+            var q = (from c in collection.AsQueryable<NtpuCourseModel>()
 
                      select c).GroupBy(c => c.課程流水號)
                 .Where(g => g.Count() > 1)
@@ -160,9 +160,9 @@ namespace WindowsFormsTest
         {
             var _client = new MongoClient();
             var _database = _client.GetDatabase("SuperUniversityCourses");
-            var collection = _database.GetCollection<NtpuCoursesModel>("ntpu");
+            var collection = _database.GetCollection<NtpuCourseModel>("ntpu");
 
-            var q = (from c in collection.AsQueryable<NtpuCoursesModel>()
+            var q = (from c in collection.AsQueryable<NtpuCourseModel>()
 
                      select c).GroupBy(c => c.課程流水號)
                 .Where(g => g.Count() > 1)
@@ -243,10 +243,10 @@ namespace WindowsFormsTest
 
             MongoClient _client = new MongoClient(mongoClientSettings);
             IMongoDatabase _database = _client.GetDatabase("superuniversitycourses");
-            IMongoCollection<NtpuCoursesModel> collection = _database.GetCollection<NtpuCoursesModel>("ntpuTest");
+            IMongoCollection<NtpuCourseModel> collection = _database.GetCollection<NtpuCourseModel>("ntpuTest");
 
             ObjectId id = new ObjectId("59253ad699eff6165cead28d");
-            string teststring = collection.AsQueryable<NtpuCoursesModel>().Where(c => c._id==id).FirstOrDefault().開課系所;
+            string teststring = collection.AsQueryable<NtpuCourseModel>().Where(c => c._id==id).FirstOrDefault().開課系所;
             MessageBox.Show(teststring);
 
 

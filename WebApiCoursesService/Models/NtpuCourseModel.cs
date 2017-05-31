@@ -6,7 +6,7 @@ using System.Web;
 
 namespace WebApiCoursesService.Models
 {
-    public class NtpuCoursesModel
+    public class NtpuCourseModel
     {
         public string 科目名稱 { get; set; }
         public string 授課教師 { get; set; }

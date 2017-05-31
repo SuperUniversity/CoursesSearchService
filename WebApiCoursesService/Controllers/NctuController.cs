@@ -1,46 +1,45 @@
 ﻿using MongoDB.Bson;
-using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System.Web;
 using System.Web.Http;
+using System.Web.Mvc;
 using WebApiCoursesService.Models;
 
 namespace WebApiCoursesService.Controllers
 {
-    public class NtpuController : ApiController
+    public class NctuController : ApiController
     {
-        private IRepository<NtpuCourseModel> collection = new Repository<NtpuCourseModel>("ntpuTest");
+        private IRepository<NctuCourseModel> collection = new Repository<NctuCourseModel>("ntpuTest");
 
         // GET: api/SuccesssCourses
-        public IEnumerable<NtpuCourseModel> GetBySearchAll(string query)
+        public IEnumerable<NctuCourseModel> GetBySearchAll(string query)
         {
             var AllCollection = collection.GetAll()
-                                .Where(c => c.科目名稱 != null && c.授課教師 != null && c.開課系所 != null && c.備註 != null);
-            
-            var result = AllCollection.Where(c => c.科目名稱.Contains(query) || c.授課教師.Contains(query) || c.開課系所.Contains(query) || c.備註.Contains(query));
+                                .Where(c => c.課程名稱 != null && c.開課教師 != null && c.備註 != null);
+
+            var result = AllCollection.Where(c => c.課程名稱.Contains(query) || c.開課教師.Contains(query) || c.備註.Contains(query));
             return result;
         }
 
-        public IEnumerable<NtpuCourseModel> GetBySearchEach(string coursename=null, string teachername = null, string department = null, string weekday = null)
+        public IEnumerable<NctuCourseModel> GetBySearchEach(string coursename = null, string teachername = null, string department = null, string weekday = null)
         {
+            //Todo 沒有開課系所這個爛為
             var AllCollection = collection.GetAll()
-                                    .Where(c => (coursename != null) ? c.科目名稱 != null : true)
-                                    .Where(c => (teachername != null) ? c.授課教師 != null : true)
-                                    .Where(c => (department != null) ? c.開課系所 != null : true)
-                                    .Where(c => (weekday != null) ? c.上課時間教室 != null : true);
+                                    .Where(c => (coursename != null) ? c.課程名稱 != null : true)
+                                    .Where(c => (teachername != null) ? c.開課教師 != null : true)
+                                    .Where(c => (weekday != null) ? c.上課時間及教室 != null : true);
 
-            var result = AllCollection.Where(c => (coursename != null) ? c.科目名稱.Contains(coursename) : true)
-                                    .Where(c => (teachername != null) ? c.授課教師.Contains(teachername) : true)
-                                    .Where(c => (department != null) ? c.開課系所.Contains(department) : true)
-                                    .Where(c => (weekday != null) ? c.上課時間教室.Contains(weekday) : true);
+            var result = AllCollection.Where(c => (coursename != null) ? c.課程名稱.Contains(coursename) : true)
+                                    .Where(c => (teachername != null) ? c.開課教師.Contains(teachername) : true)
+                                    .Where(c => (department != null) ? c.上課時間及教室.Contains(department) : true);
+
             return result;
         }
 
         // POST: api/Ntpu
-        public void Post(NtpuCourseModel coursedata)
+        public void Post(NctuCourseModel coursedata)
         {
             collection.Insert(coursedata);
         }
@@ -48,7 +47,7 @@ namespace WebApiCoursesService.Controllers
         // PUT: api/Ntpu/5
         public void PutComment(string strid, bool iscomment, Comment InputComment)
         {
-            NtpuCourseModel TargetCourse = collection.GetByID(strid);
+            NctuCourseModel TargetCourse = collection.GetByID(strid);
             List<Comment> OrginalCommentData = TargetCourse.commentdata;
 
             if (OrginalCommentData == null)
@@ -67,7 +66,7 @@ namespace WebApiCoursesService.Controllers
         public void PutRanking(string strid, bool isranking, Ranking InputRanking)
         {
             ObjectId id = new ObjectId(strid);
-            NtpuCourseModel TargetCourse = collection.GetByID(strid);
+            NctuCourseModel TargetCourse = collection.GetByID(strid);
             List<Ranking> OriginalRankingData = TargetCourse.rankingdata;
 
             if (OriginalRankingData == null)
