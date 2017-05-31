@@ -11,15 +11,17 @@ namespace WebApiCoursesService.Controllers
 {
     public class NctuController : ApiController
     {
-        private IRepository<NctuCourseModel> collection = new Repository<NctuCourseModel>("NctuTest");
+        private IRepository<NctuCourseModel> collection = new Repository<NctuCourseModel>("nctuTest");
 
         // GET: api/SuccesssCourses
         public IEnumerable<NctuCourseModel> GetBySearchAll(string query)
         {
-            var AllCollection = collection.GetAll()
-                                .Where(c => c.課程名稱 != null && c.開課教師 != null && c.備註 != null);
 
-            var result = AllCollection.Where(c => c.課程名稱.Contains(query) || c.開課教師.Contains(query) || c.備註.Contains(query));
+            //Todo 拿掉備註
+            var AllCollection = collection.GetAll()
+                                .Where(c => c.課程名稱 != null && c.開課教師 != null);
+
+            var result = AllCollection.Where(c => c.課程名稱.Contains(query) || c.開課教師.Contains(query));
             return result;
         }
 

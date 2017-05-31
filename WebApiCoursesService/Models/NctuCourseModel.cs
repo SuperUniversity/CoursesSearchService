@@ -20,6 +20,7 @@ namespace WebApiCoursesService.Models
         public string 永久課號 { get; set; }
         public string 選別 { get; set; }
         public string 時數 { get; set; }
+        public string 學分 { get; set; }
         public string 課號 { get; set; }
         public string 備註 { get; set; }
         public string 摘要 { get; set; }

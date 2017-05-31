@@ -87,3 +87,4 @@ C:\Users\Jeremy\OneDrive\MSIT\MIST114\SpecialProject\CoursesSearchService\WebApi
 C:\Users\Jeremy\OneDrive\MSIT\MIST114\SpecialProject\CoursesSearchService\WebApiCoursesService\bin\zh-Hant\System.Web.WebPages.Razor.resources.dll
 C:\Users\Jeremy\OneDrive\MSIT\MIST114\SpecialProject\CoursesSearchService\WebApiCoursesService\obj\Release\WebApiCoursesService.dll
 C:\Users\Jeremy\OneDrive\MSIT\MIST114\SpecialProject\CoursesSearchService\WebApiCoursesService\obj\Release\WebApiCoursesService.pdb
+C:\Users\Jeremy\OneDrive\MSIT\MIST114\SpecialProject\CoursesSearchService\WebApiCoursesService\obj\Release\WebApiCoursesService.csprojResolveAssemblyReference.cache

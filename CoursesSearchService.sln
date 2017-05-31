@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiCoursesService", "Web
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsTest", "WindowsFormsTest\WindowsFormsTest.csproj", "{B02B3624-A4A3-4B59-B23A-D47B20CF2C2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseSearchFrontEndMvc", "CourseSearchFrontEndMvc\CourseSearchFrontEndMvc.csproj", "{B24CB48E-DC50-477A-B8B9-49070D468D1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{B02B3624-A4A3-4B59-B23A-D47B20CF2C2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B02B3624-A4A3-4B59-B23A-D47B20CF2C2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B02B3624-A4A3-4B59-B23A-D47B20CF2C2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B24CB48E-DC50-477A-B8B9-49070D468D1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B24CB48E-DC50-477A-B8B9-49070D468D1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B24CB48E-DC50-477A-B8B9-49070D468D1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B24CB48E-DC50-477A-B8B9-49070D468D1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
