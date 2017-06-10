@@ -30,7 +30,7 @@ namespace MvcClient.Areas.Courses.Controllers
             if(query == null)
             {
                 List<NtpuCourseModel> ntpuCourses = null;
-                queryString = @"api/Ntpu?topN=100";
+                queryString = @"api/Ntpu?topn=100";
 
                 using (var client = new HttpClient())
                 {

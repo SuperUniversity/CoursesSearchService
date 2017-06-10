@@ -15,7 +15,7 @@ namespace WebApiCoursesService.Controllers
         private IRepository<NtpuCourseModel> collection = new Repository<NtpuCourseModel>("ntpuTest");
 
         // GET: api/SuccesssCourses
-        public IEnumerable<NtpuCourseModel> GetBySearchAll(string query, string query2 = null, string query3 = null, string exclude = null, int topN=-1)
+        public IEnumerable<NtpuCourseModel> GetBySearchAll(string query, string query2 = null, string query3 = null, string exclude = null, int topn=-1)
         {
             var AllCollection = collection.GetAll().Where(c => c.科目名稱 != null && c.授課教師 != null && c.開課系所 != null);
             
@@ -24,12 +24,12 @@ namespace WebApiCoursesService.Controllers
             result = (query3 != null) ? result.Where(c => c.科目名稱.Contains(query3) || c.授課教師.Contains(query3) || c.開課系所.Contains(query3)) : result;
             result = (exclude != null) ? result.Where(c => ! c.科目名稱.Contains(exclude) && ! c.授課教師.Contains(exclude) && ! c.開課系所.Contains(exclude)) : result;
 
-            result = CourseUtl.TopnFilter<NtpuCourseModel>(result, topN);
+            result = CourseUtl.TopnFilter<NtpuCourseModel>(result, topn);
 
             return result;
         }
 
-        public IEnumerable<NtpuCourseModel> GetBySearchEach(string coursename=null, string teachername = null, string department = null, string weekday = null,int topN=-1)
+        public IEnumerable<NtpuCourseModel> GetBySearchEach(string coursename=null, string teachername = null, string department = null, string weekday = null,int topn=-1)
         {
             var AllCollection = collection.GetAll()
                                     .Where(c => (coursename != null) ? c.科目名稱 != null : true)
@@ -42,7 +42,7 @@ namespace WebApiCoursesService.Controllers
                                     .Where(c => (department != null) ? c.開課系所.Contains(department) : true)
                                     .Where(c => (weekday != null) ? c.上課時間教室.Contains(weekday) : true);
 
-            result = CourseUtl.TopnFilter<NtpuCourseModel>(result, topN);
+            result = CourseUtl.TopnFilter<NtpuCourseModel>(result, topn);
 
             return result;
         }
