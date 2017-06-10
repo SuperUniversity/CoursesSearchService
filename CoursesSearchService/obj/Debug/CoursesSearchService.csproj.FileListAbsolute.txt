@@ -11,3 +11,16 @@ C:\Users\Jeremy\OneDrive\MSIT\MIST114\SpecialProject\CoursesSearchService\Course
 C:\Users\Jeremy\OneDrive\MSIT\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\obj\Debug\CoursesSearchService.dll
 C:\Users\Jeremy\OneDrive\MSIT\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\obj\Debug\CoursesSearchService.pdb
 C:\Users\Jeremy\OneDrive\MSIT\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\obj\Debug\CoursesSearchService.csprojResolveAssemblyReference.cache
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\bin\CoursesSearchService.dll.config
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\bin\CoursesSearchService.dll
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\bin\CoursesSearchService.pdb
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\bin\MongoDB.Bson.dll
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\bin\MongoDB.Driver.Core.dll
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\bin\MongoDB.Driver.dll
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\bin\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\bin\MongoDB.Bson.xml
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\bin\MongoDB.Driver.xml
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\bin\MongoDB.Driver.Core.xml
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\obj\Debug\CoursesSearchService.csprojResolveAssemblyReference.cache
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\obj\Debug\CoursesSearchService.dll
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\obj\Debug\CoursesSearchService.pdb

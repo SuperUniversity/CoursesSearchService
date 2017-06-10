@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@section styles{
+    <style>
+        .btn-stretch {
+            width: 100%;
+            margin: 5px;
+            text-align: left;
+        }
+
+        .row {
+            margin: 5px;
+        }
+
+        #coursTables .btn-stretch span {
+            float: right
+        }
+
+        body.waiting * {
+            cursor: progress;
+        }
+    </style>
+}
+
+
+
+
+
+
+<div class="container">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">課程檢索</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown" id="rtrievalMode">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">一般檢索 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">一般檢索</a></li>
+                            <li><a href="#">進階檢索</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form class="navbar-form navbar-left" id="generalSearch"  >
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="SearchAll" placeholder="Ex.計量 經濟 陳 -所" title="計量 and 經濟 and 陳 not 所">
+                    </div>
+                    <button type="submit" class="btn btn-default">搜尋</button>
+                </form>
+
+                <form class="navbar-form navbar-left" id="advacedSearch"  hidden="hidden">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="SearchAll" placeholder="課程名稱 Ex.計量">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="SearchAll" placeholder="授課教師 Ex.陳">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="SearchAll" placeholder="開課系所 Ex.經濟">
+                    </div>
+                    <button type="submit" class="btn btn-default">搜尋</button>
+                </form>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+        <div class="row" id="coursTables">
+            <div class="btn btn-info btn-stretch" id="NtuTitle">
+                臺　灣　大　學
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </div>
+            <div id="NtuTable" hidden="hidden">
+
+            </div>
+
+            <div class="btn btn-info btn-stretch" id="NtpuTitle">
+                臺　北　大　學
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </div>
+            <div id="NtpuTable" hidden="hidden">
+
+            </div>
+
+            <div class="btn btn-info btn-stretch">
+                交　通　大　學
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </div>
+            <div class="btn btn-info btn-stretch">
+                成　功　大　學
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </div>
+        </div>
+
+    </div>
+
+@section scripts{
+    <script>
+        //$(document).ready(function () {
+        //    $("#NtpuTable").toggle();
+        //})
+
+        $("#NtpuTitle").click(function () {
+            $('body').addClass('waiting');
+            $("#NtpuTable").load('@Url.Action("GetNtpuAll", "Courses", new { area = "Courses" })', function () {
+                $("#NtpuTable").fadeToggle(1000, function () {
+                    $('body').removeClass('waiting');
+                })
+            })
+        })
+
+
+        $("#rtrievalMode>ul li:eq(0)").click(function () {
+            $("#rtrievalMode>a").html('一般檢索 <span class="caret"></span>')
+            $("#generalSearch").removeAttr("hidden")
+            $("#advacedSearch").attr("hidden","hedden")
+        })
+
+        $("#rtrievalMode>ul li:eq(1)").click(function () {
+            $("#rtrievalMode>a").html('進階檢索 <span class="caret"></span>')
+            $("#advacedSearch").removeAttr("hidden")
+            $("#generalSearch").attr("hidden", "hedden")
+        })
+    </script>
+}
+

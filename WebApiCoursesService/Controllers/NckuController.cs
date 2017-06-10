@@ -16,16 +16,20 @@ namespace WebApiCoursesService.Controllers
         private IRepository<NckuCourseModel> collection = new Repository<NckuCourseModel>("nckuTest");
 
         // GET: api/SuccesssCourses
-        public IEnumerable<NckuCourseModel> GetBySearchAll(string query)
+        public IEnumerable<NckuCourseModel> GetBySearchAll(string query,string query2 = null, string query3 = null, string exclude = null, int topN=-1)
         {
-            var AllCollection = collection.GetAll()
-                .Where(c => c.課程名稱 != null && c.教師姓名 != null && c.系所名稱 != null && c.備註 != null);
+            var AllCollection = collection.GetAll().Where(c => c.課程名稱 != null && c.教師姓名 != null && c.系所名稱 != null);
+            var result = AllCollection.Where(c => c.課程名稱.Contains(query) || c.教師姓名.Contains(query) || c.系所名稱.Contains(query));
+            result = (query2 != null) ? result.Where(c => c.課程名稱.Contains(query2) || c.教師姓名.Contains(query2) || c.系所名稱.Contains(query2)) : result;
+            result = (query3 != null) ? result.Where(c => c.課程名稱.Contains(query3) || c.教師姓名.Contains(query3) || c.系所名稱.Contains(query3)) : result;
+            result = (exclude != null) ? result.Where(c => !c.課程名稱.Contains(exclude) && !c.教師姓名.Contains(exclude) && !c.系所名稱.Contains(exclude)) : result;
 
-            var result = AllCollection.Where(c => c.課程名稱.Contains(query) || c.教師姓名.Contains(query) || c.系所名稱.Contains(query) || c.備註.Contains(query));
+            result = CourseUtl.TopnFilter<NckuCourseModel>(result, topN);
+
             return result;
         }
 
-        public IEnumerable<NckuCourseModel> GetBySearchEach(string coursename = null, string teachername = null, string department = null, string weekday = null)
+        public IEnumerable<NckuCourseModel> GetBySearchEach(string coursename = null, string teachername = null, string department = null, string weekday = null, int topN = -1)
         {
             var AllCollection = collection.GetAll()
                                     .Where(c => (coursename != null) ? c.課程名稱 != null : true)
@@ -37,7 +41,16 @@ namespace WebApiCoursesService.Controllers
                                     .Where(c => (teachername != null) ? c.教師姓名.Contains(teachername) : true)
                                     .Where(c => (department != null) ? c.系所名稱.Contains(department) : true)
                                     .Where(c => (weekday != null) ? c.時間.Contains(weekday) : true);
+            result = CourseUtl.TopnFilter<NckuCourseModel>(result, topN);
+
             return result;
+        }
+
+        public NckuCourseModel GetByID(string strid)
+        {
+            ObjectId id = new ObjectId(strid);
+            NckuCourseModel TargetCourse = collection.GetByID(strid);
+            return TargetCourse;
         }
 
         // POST: api/SuccesssCourses(insert)

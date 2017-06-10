@@ -52,6 +52,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
@@ -143,6 +146,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Courses\Controllers\CoursesController.cs" />
+    <Compile Include="Areas\Courses\CoursesAreaRegistration.cs" />
+    <Compile Include="Areas\Courses\Models\ClsCourseAppendix.cs" />
+    <Compile Include="Areas\Courses\Models\NckuCourseModel.cs" />
+    <Compile Include="Areas\Courses\Models\NctuCourseModel.cs" />
+    <Compile Include="Areas\Courses\Models\NtpuCourseModel.cs" />
+    <Compile Include="Areas\Courses\Models\NtuCourseModel.cs" />
+    <Compile Include="Areas\ViewModels\NtpuReadViewModel.cs" />
     <Compile Include="Connected Services\CoursesDbService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -162,6 +173,11 @@
     <Content Include="Connected Services\CoursesDbService\MvcClient.CoursesDbService.DtoSuccess.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Areas\Courses\Views\web.config" />
+    <Content Include="Areas\Courses\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Courses\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Courses\Views\Courses\Index.cshtml" />
+    <Content Include="Areas\Courses\Views\Courses\GetNtpuAll.cshtml" />
     <None Include="Connected Services\CoursesDbService\Service1.disco" />
     <None Include="Connected Services\CoursesDbService\configuration91.svcinfo" />
     <None Include="Connected Services\CoursesDbService\configuration.svcinfo" />
