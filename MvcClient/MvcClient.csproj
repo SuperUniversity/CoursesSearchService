@@ -147,6 +147,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Courses\Controllers\CoursesController.cs" />
+    <Compile Include="Areas\Courses\Controllers\CoursesControllerUtl.cs" />
     <Compile Include="Areas\Courses\CoursesAreaRegistration.cs" />
     <Compile Include="Areas\Courses\Models\ClsCourseAppendix.cs" />
     <Compile Include="Areas\Courses\Models\NckuCourseModel.cs" />
@@ -177,7 +178,10 @@
     <Content Include="Areas\Courses\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Courses\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Courses\Views\Courses\Index.cshtml" />
-    <Content Include="Areas\Courses\Views\Courses\GetNtpuAll.cshtml" />
+    <Content Include="Areas\Courses\Views\Courses\GetNtpuBySearchAll.cshtml" />
+    <Content Include="Areas\Courses\Views\Courses\GetNtuBySearchAll.cshtml" />
+    <Content Include="Areas\Courses\Views\Courses\GetNckuBySearchAll.cshtml" />
+    <Content Include="Areas\Courses\Views\Courses\GetNctuBySearchAll.cshtml" />
     <None Include="Connected Services\CoursesDbService\Service1.disco" />
     <None Include="Connected Services\CoursesDbService\configuration91.svcinfo" />
     <None Include="Connected Services\CoursesDbService\configuration.svcinfo" />

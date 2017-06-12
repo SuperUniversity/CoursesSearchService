@@ -25,30 +25,36 @@ namespace MvcClient.Areas.Courses.Controllers
         public static String domain = "http://taiwanuniversitiescourses.azurewebsites.net/";
         public static String queryString = null;
 
-        public async Task<ActionResult> GetNtpuAll(string query)
+
+        public async Task<ActionResult> GetNtuBySearchAll(string query = null)
         {
-            if(query == null)
-            {
-                List<NtpuCourseModel> ntpuCourses = null;
-                queryString = @"api/Ntpu?topn=100";
-
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri(domain);
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                    //GET Method  
-                    HttpResponseMessage response = await client.GetAsync(queryString);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        ntpuCourses = await response.Content.ReadAsAsync<List<NtpuCourseModel>>();
-                    }
-                }
-            }
+            IEnumerable<NtuCourseModel> ntuCourses = await CoursesControllerUtl.BySearchAllWholeWork< NtuCourseModel>(domain, "ntu", query);
+            return PartialView(ntuCourses);
+        }
 
 
+        public async Task<ActionResult> GetNtpuBySearchAll(string query=null)
+        {
+            IEnumerable<NtpuCourseModel> ntpuCourses = await CoursesControllerUtl.BySearchAllWholeWork<NtpuCourseModel>(domain, "ntpu", query);
             return PartialView(ntpuCourses);
         }
+
+
+        public async Task<ActionResult> GetNctuBySearchAll(string query = null)
+        {
+            IEnumerable<NctuCourseModel> nctuCourses = await CoursesControllerUtl.BySearchAllWholeWork<NctuCourseModel>(domain, "nctu", query);
+            return PartialView(nctuCourses);
+        }
+
+
+        public async Task<ActionResult> GetNckuBySearchAll(string query = null)
+        {
+            IEnumerable<NckuCourseModel> nckuCourses = await CoursesControllerUtl.BySearchAllWholeWork<NckuCourseModel>(domain, "ncku", query);
+            return PartialView(nckuCourses);
+        }
+
+
+
+
     }
 }

@@ -9,6 +9,7 @@ namespace WebApiCoursesService.Models
     {
         public string commentstring { get; set; }
         public string name { get; set; }
+        public bool anonym { get; set; }
     }
     public class Ranking
     {

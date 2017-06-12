@@ -96,31 +96,116 @@
 
             </div>
 
-            <div class="btn btn-info btn-stretch">
+            <div class="btn btn-info btn-stretch"  id="NctuTitle">
                 交　通　大　學
                 <span class="glyphicon glyphicon-eye-open"></span>
             </div>
-            <div class="btn btn-info btn-stretch">
+            <div id="NctuTable" hidden="hidden">
+
+            </div>
+
+            <div class="btn btn-info btn-stretch"  id="NckuTitle">
                 成　功　大　學
                 <span class="glyphicon glyphicon-eye-open"></span>
             </div>
+            <div id="NckuTable" hidden="hidden">
+
+            </div>
+
         </div>
 
     </div>
 
 @section scripts{
     <script>
-        //$(document).ready(function () {
-        //    $("#NtpuTable").toggle();
-        //})
+        $(document).ready(function () {
+            $('#generalSearch input').focus();
+        })
+        function urlGenerator(actionName) {
+            var url = null;
+
+            if ($("#generalSearch input").val() == "") {
+
+                url = '@Url.Action("GetNtpuBySearchAll", "Courses", new { area = "Courses"})'
+            }
+            else {
+                url = '@Url.Action("GetNtpuBySearchAll", "Courses", new { area = "Courses",query="_query"})'
+                var query = $("#generalSearch input").val().replace(new RegExp(" ","g"), "%20")
+                url = url.replace("_query", query)
+            }
+
+            url = url.replace("_query", query).replace("GetNtpuBySearchAll", actionName)
+
+            return url
+        }
+
+
+        $("#generalSearch button").click(function (event) {
+            event.preventDefault();
+            $('#NtuTitle').html("臺　灣　大　學　(檢　索　中　...)" + '<span class="glyphicon glyphicon-eye-open"></span>')
+                .attr("disabled", "disabled")
+
+            $('#NtpuTitle').html("臺　北　大　學　(檢　索　中　...)" + '<span class="glyphicon glyphicon-eye-open"></span>')
+                .attr("disabled", "disabled")
+
+            $('#NctuTitle').html("交　通　大　學　(檢　索　中　...)" + '<span class="glyphicon glyphicon-eye-open"></span>')
+                .attr("disabled", "disabled")
+
+            $('#NckuTitle').html("成　功　大　學　(檢　索　中　...)" + '<span class="glyphicon glyphicon-eye-open"></span>')
+                .attr("disabled", "disabled")
+
+            ntuUrl = urlGenerator("GetNtuBySearchAll")
+            ntpuUrl = urlGenerator("GetNtpuBySearchAll")
+            nctuUrl = urlGenerator("GetNctuBySearchAll")
+            nckuUrl = urlGenerator("GetNckuBySearchAll")
+
+
+            $("#NtuTable").load(ntuUrl, function () {
+                var dataLen = $("#NtuTable tr").length - 1;
+                var recentText = $('#NtuTitle').text()
+                $('#NtuTitle').html(recentText.replace("　(檢　索　中　...)", "　(檢　索　完　成　，　共　" + dataLen+"　筆　資　料)") + '<span class="glyphicon glyphicon-eye-open"></span>')
+                    .removeAttr("disabled")
+            })
+
+            $("#NtpuTable").load(ntpuUrl, function () {
+                var dataLen = $("#NtpuTable tr").length - 1;
+                var recentText = $('#NtpuTitle').text()
+                $('#NtpuTitle').html(recentText.replace("　(檢　索　中　...)", "　(檢　索　完　成　，　共　" + dataLen + "　筆　資　料)") +'<span class="glyphicon glyphicon-eye-open"></span>')
+                    .removeAttr("disabled")
+            })
+
+            $("#NctuTable").load(nctuUrl, function () {
+                var dataLen = $("#NctuTable tr").length - 1;
+                var recentText = $('#NctuTitle').text()
+                $('#NctuTitle').html(recentText.replace("　(檢　索　中　...)", "　(檢　索　完　成　，　共　" + dataLen + "　筆　資　料)") + '<span class="glyphicon glyphicon-eye-open"></span>')
+                    .removeAttr("disabled")
+            })
+
+            $("#NckuTable").load(nckuUrl, function () {
+                var dataLen = $("#NckuTable tr").length - 1;
+                var recentText = $('#NckuTitle').text()
+                $('#NckuTitle').html(recentText.replace("　(檢　索　中　...)", "　(檢　索　完　成　，　共　" + dataLen + "　筆　資　料)") +'<span class="glyphicon glyphicon-eye-open"></span>')
+                    .removeAttr("disabled")
+            })
+        })
+
+
+
 
         $("#NtpuTitle").click(function () {
-            $('body').addClass('waiting');
-            $("#NtpuTable").load('@Url.Action("GetNtpuAll", "Courses", new { area = "Courses" })', function () {
-                $("#NtpuTable").fadeToggle(1000, function () {
-                    $('body').removeClass('waiting');
-                })
-            })
+            $("#NtpuTable").slideToggle(1500)
+        })
+
+        $("#NtuTitle").click(function () {
+            $("#NtuTable").slideToggle(1500)
+        })
+
+        $("#NctuTitle").click(function () {
+            $("#NctuTable").slideToggle(1500)
+        })
+
+        $("#NckuTitle").click(function () {
+            $("#NckuTable").slideToggle(1500)
         })
 
 

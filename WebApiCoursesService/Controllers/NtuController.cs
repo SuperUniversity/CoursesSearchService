@@ -15,7 +15,7 @@ namespace WebApiCoursesService.Controllers
         private IRepository<NtuCourseModel> collection = new Repository<NtuCourseModel>("ntuTest");
 
         //GET api/values/5
-        public IEnumerable<NtuCourseModel> GetBySearchAll(string query, string query2 = null, string query3 = null, string exclude = null, int topn = -1)
+        public IQueryable<NtuCourseModel> GetBySearchAll(string query, string query2 = null, string query3 = null, string exclude = null, int topn = -1)
         {
             var AllCollection = collection.GetAll()
                     .Where(c => c.課程名稱 != null && c.授課教師 != null && c.授課對象 != null);
@@ -26,13 +26,13 @@ namespace WebApiCoursesService.Controllers
             result = (query3 != null) ? result.Where(c => c.課程名稱.Contains(query3) || c.授課教師.Contains(query3) || c.授課對象.Contains(query3)) : result;
             result = (exclude != null) ? result.Where(c => !c.課程名稱.Contains(exclude) && !c.授課教師.Contains(exclude) && !c.授課對象.Contains(exclude)) : result;
 
-            result = CourseUtl.TopnFilter<NtuCourseModel>(result, topn);
+            result = CourseUtl.TopnFilter<NtuCourseModel>(result.AsQueryable< NtuCourseModel>(), topn);
 
-            return result;
+            return result.AsQueryable<NtuCourseModel>();
 
         }
 
-        public IEnumerable<NtuCourseModel> GetBySearchEach(string coursename = null, string teachername = null, string department = null, string weekday = null, int topn = -1)
+        public IQueryable<NtuCourseModel> GetBySearchEach(string coursename = null, string teachername = null, string department = null, string weekday = null, int topn = -1)
         {
             var AllCollection = collection.GetAll()
                 //.Where(c => c.課程名稱 != null&& c.授課教師 != null && c.授課對象 != null && c.時間教室 != null);
@@ -46,9 +46,9 @@ namespace WebApiCoursesService.Controllers
                                     .Where(c => (department != null) ? c.授課對象.Contains(department) : true)
                                     .Where(c => (weekday != null) ? c.時間教室.Contains(weekday) : true);
 
-            result = CourseUtl.TopnFilter<NtuCourseModel>(result, topn);
+            result = CourseUtl.TopnFilter<NtuCourseModel>(result.AsQueryable<NtuCourseModel>(), topn);
 
-            return result;
+            return result.AsQueryable<NtuCourseModel>();
         }
 
         public NtuCourseModel GetByID(string strid)

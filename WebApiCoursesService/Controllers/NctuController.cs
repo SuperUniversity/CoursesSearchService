@@ -14,7 +14,7 @@ namespace WebApiCoursesService.Controllers
         private IRepository<NctuCourseModel> collection = new Repository<NctuCourseModel>("nctuTest");
 
         // GET: api/SuccesssCourses
-        public IEnumerable<NctuCourseModel> GetBySearchAll(string query, string query2 = null, string query3 = null, string exclude = null, int topn = -1)
+        public IQueryable<NctuCourseModel> GetBySearchAll(string query, string query2 = null, string query3 = null, string exclude = null, int topn = -1)
         {
 
             //Todo 拿掉備註
@@ -24,12 +24,12 @@ namespace WebApiCoursesService.Controllers
             result = (query3 != null) ? result.Where(c => c.課程名稱.Contains(query3) || c.開課教師.Contains(query3)) : result;
             result = (exclude != null) ? result.Where(c => !c.課程名稱.Contains(exclude) && !c.開課教師.Contains(exclude)) : result;
 
-            result = CourseUtl.TopnFilter<NctuCourseModel>(result, topn);
+            result = CourseUtl.TopnFilter<NctuCourseModel>(result.AsQueryable< NctuCourseModel>(), topn);
 
-            return result;
+            return result.AsQueryable< NctuCourseModel>();
         }
 
-        public IEnumerable<NctuCourseModel> GetBySearchEach(string coursename = null, string teachername = null, string department = null, string weekday = null, int topn = -1)
+        public IQueryable<NctuCourseModel> GetBySearchEach(string coursename = null, string teachername = null, string department = null, string weekday = null, int topn = -1)
         {
             //Todo 沒有開課系所這個欄位
             var AllCollection = collection.GetAll()
@@ -41,9 +41,9 @@ namespace WebApiCoursesService.Controllers
                                     .Where(c => (teachername != null) ? c.開課教師.Contains(teachername) : true)
                                     .Where(c => (department != null) ? c.上課時間及教室.Contains(department) : true);
 
-            result = CourseUtl.TopnFilter<NctuCourseModel>(result, topn);
+            result = CourseUtl.TopnFilter<NctuCourseModel>(result.AsQueryable< NctuCourseModel>(), topn);
 
-            return result;
+            return result.AsQueryable<NctuCourseModel>();
         }
 
         public NctuCourseModel GetByID(string strid)

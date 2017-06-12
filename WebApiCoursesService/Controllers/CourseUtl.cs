@@ -8,16 +8,16 @@ namespace WebApiCoursesService.Controllers
     public class CourseUtl
     {
         //TODO
-        public static IEnumerable<T> TopnFilter<T>(IEnumerable<T> inputResult, int topn)
+        public static IQueryable<T> TopnFilter<T>(IQueryable<T> inputResult, int topn)
         {
-            IEnumerable<T> result = inputResult;
+            IQueryable<T> result = inputResult;
             if (topn != -1)
             {
                 topn = (topn > result.Count()) ? result.Count() : topn;
                 topn = (topn <= 0) ? 1 : topn;
                 result = result.Take(topn);
             }
-            return result;
+            return result.AsQueryable<T>();
         }
     }
 }
