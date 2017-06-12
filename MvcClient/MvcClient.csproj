@@ -149,6 +149,7 @@
     <Compile Include="Areas\Courses\Controllers\CoursesController.cs" />
     <Compile Include="Areas\Courses\Controllers\CoursesControllerUtl.cs" />
     <Compile Include="Areas\Courses\CoursesAreaRegistration.cs" />
+    <Compile Include="Areas\Courses\Models\AllCollegeCourseModel.cs" />
     <Compile Include="Areas\Courses\Models\ClsCourseAppendix.cs" />
     <Compile Include="Areas\Courses\Models\NckuCourseModel.cs" />
     <Compile Include="Areas\Courses\Models\NctuCourseModel.cs" />

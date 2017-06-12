@@ -9,15 +9,16 @@ namespace MvcClient.Areas.Courses.Controllers
 {
     public class CoursesControllerUtl
     {
-        public static string QueryStringGenerator(string ApiUniversity, string query, int topn=-1)
+        public static string QueryStringGenerator(string ApiUniversity, string query, string college, int topn=-1)
         {
-            string queryString = @"api/" + ApiUniversity;
+            string queryString = @"api/" + ApiUniversity + "?college=" + college;
+
 
             if (query == null)
             {
                 if (topn != -1)
                 {
-                    queryString += "?topn=" + topn;
+                    queryString += "&topn=" + topn;
                 }
             }
             else
@@ -50,13 +51,13 @@ namespace MvcClient.Areas.Courses.Controllers
             switch (queryLen)
             {
                 case 1:
-                    queryString = "?query=" + queries;
+                    queryString = "&query=" + queries;
                     break;
                 case 2:
-                    queryString = "?query=" + queries.Split()[0] + "&query2=" + queries.Split()[1];
+                    queryString = "&query=" + queries.Split()[0] + "&query2=" + queries.Split()[1];
                     break;
                 default:
-                    queryString = "?query=" + queries.Split()[0] + "&query2=" + queries.Split()[1] + "&query3=" + queries.Split()[2];
+                    queryString = "&query=" + queries.Split()[0] + "&query2=" + queries.Split()[1] + "&query3=" + queries.Split()[2];
                     break;
             }
             return queryString;
@@ -86,18 +87,18 @@ namespace MvcClient.Areas.Courses.Controllers
 
         }
 
-        public static async Task<IEnumerable<T>> BySearchAllWholeWork<T>(string domain, string ApiUniversity,string query)
+        public static async Task<IEnumerable<T>> BySearchAllWholeWork<T>(string domain, string ApiUniversity, string college,string query)
         {
             IEnumerable<T> Courses = null;
             string queryString = null;
             if (query == null)
             {
-                queryString = CoursesControllerUtl.QueryStringGenerator(ApiUniversity, query, 100);
+                queryString = CoursesControllerUtl.QueryStringGenerator(ApiUniversity, query, college, 100);
                 Courses = await CoursesControllerUtl.GetFromApi<T>(domain, queryString);
             }
             else
             {
-                queryString = CoursesControllerUtl.QueryStringGenerator(ApiUniversity, query);
+                queryString = CoursesControllerUtl.QueryStringGenerator(ApiUniversity, query, college);
                 Courses = await CoursesControllerUtl.GetFromApi<T>(domain, queryString);
             }
 

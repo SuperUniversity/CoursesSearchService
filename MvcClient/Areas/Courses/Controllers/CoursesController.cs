@@ -28,28 +28,28 @@ namespace MvcClient.Areas.Courses.Controllers
 
         public async Task<ActionResult> GetNtuBySearchAll(string query = null)
         {
-            IEnumerable<NtuCourseModel> ntuCourses = await CoursesControllerUtl.BySearchAllWholeWork< NtuCourseModel>(domain, "ntu", query);
+            IEnumerable<NtuCourseModel> ntuCourses = await CoursesControllerUtl.BySearchAllWholeWork< NtuCourseModel>(domain, "AllCollege", "NTU", query);
             return PartialView(ntuCourses);
         }
 
 
         public async Task<ActionResult> GetNtpuBySearchAll(string query=null)
         {
-            IEnumerable<NtpuCourseModel> ntpuCourses = await CoursesControllerUtl.BySearchAllWholeWork<NtpuCourseModel>(domain, "ntpu", query);
+            IEnumerable<NtpuCourseModel> ntpuCourses = await CoursesControllerUtl.BySearchAllWholeWork<NtpuCourseModel>(domain, "AllCollege", "NTPU", query);
             return PartialView(ntpuCourses);
         }
 
 
         public async Task<ActionResult> GetNctuBySearchAll(string query = null)
         {
-            IEnumerable<NctuCourseModel> nctuCourses = await CoursesControllerUtl.BySearchAllWholeWork<NctuCourseModel>(domain, "nctu", query);
+            IEnumerable<NctuCourseModel> nctuCourses = await CoursesControllerUtl.BySearchAllWholeWork<NctuCourseModel>(domain, "AllCollege", "NCTU", query);
             return PartialView(nctuCourses);
         }
 
 
         public async Task<ActionResult> GetNckuBySearchAll(string query = null)
         {
-            IEnumerable<NckuCourseModel> nckuCourses = await CoursesControllerUtl.BySearchAllWholeWork<NckuCourseModel>(domain, "ncku", query);
+            IEnumerable<NckuCourseModel> nckuCourses = await CoursesControllerUtl.BySearchAllWholeWork<NckuCourseModel>(domain, "AllCollege", "NCKU", query);
             return PartialView(nckuCourses);
         }
 
