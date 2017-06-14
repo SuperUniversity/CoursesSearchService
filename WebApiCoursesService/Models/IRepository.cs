@@ -14,7 +14,7 @@ namespace WebApiCoursesService.Models
 
         //Todo
         //Task<IEnumerable<T>> GetAll()
-        IEnumerable<T> GetAll();
+        IQueryable<T> GetAll();
 
 
         // POST: api/SuccesssCourses(insert)

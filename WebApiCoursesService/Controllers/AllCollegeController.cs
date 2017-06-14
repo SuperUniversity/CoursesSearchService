@@ -51,7 +51,6 @@ namespace WebApiCoursesService.Controllers
 
         public AllCollegeCourseModel GetByID(string strid)
         {
-            ObjectId id = new ObjectId(strid);
             AllCollegeCourseModel TargetCourse = collection.GetByID(strid);
             return TargetCourse;
         }
@@ -65,8 +64,9 @@ namespace WebApiCoursesService.Controllers
         // PUT: api/Ntpu/5
         public void PutComment(string strid, bool iscomment, Comment InputComment)
         {
+            InputComment.CommentTime = DateTime.Now;
             AllCollegeCourseModel TargetCourse = collection.GetByID(strid);
-            List<Comment> OrginalCommentData = TargetCourse.commentdata;
+            List<Comment> OrginalCommentData = TargetCourse.commentdata.ToList();
 
             if (OrginalCommentData == null)
             {
@@ -83,9 +83,10 @@ namespace WebApiCoursesService.Controllers
 
         public void PutRanking(string strid, bool isranking, Ranking InputRanking)
         {
+            InputRanking.RankTime = DateTime.Now;
             ObjectId id = new ObjectId(strid);
             AllCollegeCourseModel TargetCourse = collection.GetByID(strid);
-            List<Ranking> OriginalRankingData = TargetCourse.rankingdata;
+            List<Ranking> OriginalRankingData = TargetCourse.rankingdata.ToList();
 
             if (OriginalRankingData == null)
             {

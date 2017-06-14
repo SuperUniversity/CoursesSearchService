@@ -199,7 +199,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AllCollegeCourseModel.cs" />
-    <Compile Include="Models\ClsCourseAppendix.cs" />
     <Compile Include="Models\IRepository.cs" />
     <Compile Include="Models\MyBsonSerializer.cs" />
     <Compile Include="Models\NctuCourseModel.cs" />

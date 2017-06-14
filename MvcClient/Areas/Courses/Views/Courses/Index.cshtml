@@ -21,6 +21,11 @@
         body.waiting * {
             cursor: progress;
         }
+
+        .MouseIn{
+            color:cadetblue;
+           
+        }
     </style>
 }
 
@@ -84,7 +89,7 @@
                 臺　灣　大　學
                 <span class="glyphicon glyphicon-eye-open"></span>
             </div>
-            <div id="NtuTable" hidden="hidden">
+            <div id="NtuTable" class="coursesTable" hidden="hidden">
 
             </div>
 
@@ -92,7 +97,7 @@
                 臺　北　大　學
                 <span class="glyphicon glyphicon-eye-open"></span>
             </div>
-            <div id="NtpuTable" hidden="hidden">
+            <div id="NtpuTable" class="coursesTable" hidden="hidden">
 
             </div>
 
@@ -100,7 +105,7 @@
                 交　通　大　學
                 <span class="glyphicon glyphicon-eye-open"></span>
             </div>
-            <div id="NctuTable" hidden="hidden">
+            <div id="NctuTable" class="coursesTable" hidden="hidden">
 
             </div>
 
@@ -108,7 +113,7 @@
                 成　功　大　學
                 <span class="glyphicon glyphicon-eye-open"></span>
             </div>
-            <div id="NckuTable" hidden="hidden">
+            <div id="NckuTable" class="coursesTable" hidden="hidden">
 
             </div>
 
@@ -121,7 +126,7 @@
         $(document).ready(function () {
             $('#generalSearch input').focus();
         })
-        function urlGenerator(actionName) {
+        @*function urlGenerator(actionName) {
             var url = null;
 
             if ($("#generalSearch input").val() == "") {
@@ -131,10 +136,29 @@
             else {
                 url = '@Url.Action("GetNtpuBySearchAll", "Courses", new { area = "Courses",query="_query"})'
                 var query = $("#generalSearch input").val().replace(new RegExp(" ","g"), "%20")
-                url = url.replace("_query", query)
             }
 
             url = url.replace("_query", query).replace("GetNtpuBySearchAll", actionName)
+
+            return url
+        }*@
+
+        function urlGeneratorForAll(actionName, college) {
+            var url = null;
+
+            if ($("#generalSearch input").val() == "") {
+
+                url = '@Url.Action("GetNtpuBySearchAll", "Courses", new { area = "Courses"})'
+                url += "?college=" + college;
+            }
+            else {
+                url = '@Url.Action("GetNtpuBySearchAll", "Courses", new { area = "Courses" })'
+                var query = $("#generalSearch input").val().replace(new RegExp(" ", "g"), "%20")
+                url += "?college=" + college + "&query=" + query;
+
+}
+
+            url = url.replace("GetNtpuBySearchAll", actionName)
 
             return url
         }
@@ -154,42 +178,70 @@
             $('#NckuTitle').html("成　功　大　學　(檢　索　中　...)" + '<span class="glyphicon glyphicon-eye-open"></span>')
                 .attr("disabled", "disabled")
 
-            ntuUrl = urlGenerator("GetNtuBySearchAll")
-            ntpuUrl = urlGenerator("GetNtpuBySearchAll")
-            nctuUrl = urlGenerator("GetNctuBySearchAll")
-            nckuUrl = urlGenerator("GetNckuBySearchAll")
+            //ntuUrl = urlGenerator("GetNtuBySearchAll")
+            ntuUrl = urlGeneratorForAll("GetBySearchAll", "NTU")
+            //ntpuUrl = urlGenerator("GetNtpuBySearchAll")
+            ntpuUrl = urlGeneratorForAll("GetBySearchAll", "NTPU")
+            //nctuUrl = urlGenerator("GetNctuBySearchAll")
+            nctuUrl = urlGeneratorForAll("GetBySearchAll", "NCTU")
+            //nckuUrl = urlGenerator("GetNckuBySearchAll")
+            nckuUrl = urlGeneratorForAll("GetBySearchAll", "NCKU")
 
 
             $("#NtuTable").load(ntuUrl, function () {
-                var dataLen = $("#NtuTable tr").length - 1;
-                var recentText = $('#NtuTitle').text()
+                        var dataLen = $("#NtuTable tr").length - 1;
+                        var recentText = $('#NtuTitle').text()
                 $('#NtuTitle').html(recentText.replace("　(檢　索　中　...)", "　(檢　索　完　成　，　共　" + dataLen+"　筆　資　料)") + '<span class="glyphicon glyphicon-eye-open"></span>')
                     .removeAttr("disabled")
             })
 
             $("#NtpuTable").load(ntpuUrl, function () {
-                var dataLen = $("#NtpuTable tr").length - 1;
-                var recentText = $('#NtpuTitle').text()
+                        var dataLen = $("#NtpuTable tr").length - 1;
+                        var recentText = $('#NtpuTitle').text()
                 $('#NtpuTitle').html(recentText.replace("　(檢　索　中　...)", "　(檢　索　完　成　，　共　" + dataLen + "　筆　資　料)") +'<span class="glyphicon glyphicon-eye-open"></span>')
                     .removeAttr("disabled")
             })
 
             $("#NctuTable").load(nctuUrl, function () {
-                var dataLen = $("#NctuTable tr").length - 1;
-                var recentText = $('#NctuTitle').text()
+                        var dataLen = $("#NctuTable tr").length - 1;
+                        var recentText = $('#NctuTitle').text()
                 $('#NctuTitle').html(recentText.replace("　(檢　索　中　...)", "　(檢　索　完　成　，　共　" + dataLen + "　筆　資　料)") + '<span class="glyphicon glyphicon-eye-open"></span>')
                     .removeAttr("disabled")
             })
 
             $("#NckuTable").load(nckuUrl, function () {
-                var dataLen = $("#NckuTable tr").length - 1;
-                var recentText = $('#NckuTitle').text()
+                        var dataLen = $("#NckuTable tr").length - 1;
+                        var recentText = $('#NckuTitle').text()
                 $('#NckuTitle').html(recentText.replace("　(檢　索　中　...)", "　(檢　索　完　成　，　共　" + dataLen + "　筆　資　料)") +'<span class="glyphicon glyphicon-eye-open"></span>')
                     .removeAttr("disabled")
             })
+
         })
 
+        $('.coursesTable').mousemove(function () {
+            var exist = $(this).find("table").length
+            if (exist) {
+                var id = null;
+                $(this).find("table>tbody>tr>td").mouseenter(function () {
+                    $(this).parent("tr").addClass("MouseIn")
+                    id = $(this).parent("tr").find("td:eq(0)").text()
+                    //console.log(id)
 
+                })
+
+                $(this).find("table>tbody>tr>td").mouseleave(function () {
+                    $(this).parent("tr").removeClass("MouseIn")
+                })
+
+                $(this).find("table>tbody>tr>td").parent('tr').click(function () {
+                    var url = '@Url.Action("GetCourseDetail", "Courses", new { area = "Courses" })';
+                    id = id.replace(new RegExp(" ", "g"), "")
+                    //window.location.replace(url + "?strid=" + id);
+                    window.open(url + "?strid=" + id)
+
+                })
+            }
+        })
 
 
         $("#NtpuTitle").click(function () {

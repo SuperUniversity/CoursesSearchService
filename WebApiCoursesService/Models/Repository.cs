@@ -53,10 +53,10 @@ namespace WebApiCoursesService.Models
         //    return await result;
         //}
 
-        public IEnumerable<T> GetAll()
+        public IQueryable<T> GetAll()
         {
             var result = collection.AsQueryable<T>().ToList();
-            return result;
+            return result.AsQueryable<T>();
         }
 
 
@@ -74,6 +74,7 @@ namespace WebApiCoursesService.Models
         {
             ObjectId id = new ObjectId(strid);
             var filter = Builders<T>.Filter.Eq("_id", id);
+
             UpdateDefinition<T> update = Builders<T>.Update
                                                     .Set("commentdata", InputCommentData)
                                                     .CurrentDate("lastModified");
@@ -82,8 +83,10 @@ namespace WebApiCoursesService.Models
 
         public async void AddRanking(string strid, List<Ranking> InputRankingData)
         {
-            ObjectId id = new ObjectId(strid);
-            var filter = Builders<T>.Filter.Eq("_id", id);
+            //ObjectId id = new ObjectId(strid);
+            //var filter = Builders<T>.Filter.Eq("_id", id);
+            var filter = Builders<T>.Filter.Eq("_id", strid);
+
             UpdateDefinition<T> update = Builders<T>.Update
                                                     .Set("rankingdata", InputRankingData)
                                                     .CurrentDate("lastModified");

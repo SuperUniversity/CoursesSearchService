@@ -26,4 +26,21 @@ namespace WebApiCoursesService.Models
         public List<Ranking> rankingdata { get; set; }
         public DateTime lastModified { get; set; }
     }
+
+    public class Comment
+    {
+        public string commentstring { get; set; }
+        public string name { get; set; }
+        public string email { get; set; }
+        public bool anonym { get; set; }
+        public DateTime CommentTime { get; set; }
+
+    }
+    public class Ranking
+    {
+        public int deepness { get; set; }
+        public int relaxing { get; set; }
+        public int sweetness { get; set; }
+        public DateTime RankTime { get; set; }
+    }
 }

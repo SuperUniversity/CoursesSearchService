@@ -25,11 +25,13 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <ApplicationInsightsResourceId>/subscriptions/cd7f8efa-8d32-44cb-accd-23d6027785e2/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/MvcClient</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/cd7f8efa-8d32-44cb-accd-23d6027785e2/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/MvcClient</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -150,7 +152,6 @@
     <Compile Include="Areas\Courses\Controllers\CoursesControllerUtl.cs" />
     <Compile Include="Areas\Courses\CoursesAreaRegistration.cs" />
     <Compile Include="Areas\Courses\Models\AllCollegeCourseModel.cs" />
-    <Compile Include="Areas\Courses\Models\ClsCourseAppendix.cs" />
     <Compile Include="Areas\Courses\Models\NckuCourseModel.cs" />
     <Compile Include="Areas\Courses\Models\NctuCourseModel.cs" />
     <Compile Include="Areas\Courses\Models\NtpuCourseModel.cs" />
@@ -163,6 +164,7 @@
     </Compile>
     <Compile Include="Controllers\AsyncCoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -183,6 +185,13 @@
     <Content Include="Areas\Courses\Views\Courses\GetNtuBySearchAll.cshtml" />
     <Content Include="Areas\Courses\Views\Courses\GetNckuBySearchAll.cshtml" />
     <Content Include="Areas\Courses\Views\Courses\GetNctuBySearchAll.cshtml" />
+    <Content Include="Areas\Courses\Views\Courses\GetBySearchAll.cshtml" />
+    <Content Include="Connected Services\Application Insights\ConnectedService.json" />
+    <Content Include="Areas\Courses\Views\Courses\GetCourseDetail.cshtml" />
+    <Content Include="Areas\Courses\Views\Courses\GetRankings.cshtml" />
+    <Content Include="Areas\Courses\Views\Courses\PostRanking.cshtml" />
+    <Content Include="Areas\Courses\Views\Courses\GetComments.cshtml" />
+    <Content Include="Areas\Courses\Views\Courses\PostComment.cshtml" />
     <None Include="Connected Services\CoursesDbService\Service1.disco" />
     <None Include="Connected Services\CoursesDbService\configuration91.svcinfo" />
     <None Include="Connected Services\CoursesDbService\configuration.svcinfo" />
