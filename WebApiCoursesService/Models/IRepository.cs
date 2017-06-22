@@ -25,7 +25,7 @@ namespace WebApiCoursesService.Models
         //void AddComment(string strid, Comment comment);
 
         //void AddRanking(string strid, bool isranking, Ranking ranking);
-        //void Update(string strid, T coursedata);
+        void Update(string strid, T coursedata);
         void AddComment(string strid, List<Comment> InputCommentData);
         void AddRanking(string strid, List<Ranking> InputRankingData);
 

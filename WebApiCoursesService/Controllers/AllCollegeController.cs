@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using WebApiCoursesService.Models;
 
@@ -12,6 +14,8 @@ namespace WebApiCoursesService.Controllers
     public class AllCollegeController : ApiController
     {
         private IRepository<AllCollegeCourseModel> collection = new Repository<AllCollegeCourseModel>("allcourses");
+        private IRepository<User_Comment> UserCommentCollection = new Repository<User_Comment>("userComment");
+        private IRepository<User_Ranking> UserRankingCollection = new Repository<User_Ranking>("userRanking");
 
         // GET: api/SuccesssCourses
         public IQueryable<AllCollegeCourseModel> GetBySearchAll(string college, string query, string query2 = null, string query3 = null, string exclude = null, int topn = -1)
@@ -64,9 +68,14 @@ namespace WebApiCoursesService.Controllers
         // PUT: api/Ntpu/5
         public void PutComment(string strid, bool iscomment, Comment InputComment)
         {
-            InputComment.CommentTime = DateTime.Now;
+            InputComment.commentID = Guid.NewGuid().ToString();
+            InputComment.lastModified = DateTime.Now.AddHours(8);
+            InputComment.likes = 0;
+            InputComment.dislikes = 0;
+            InputComment.hidden = false;
+            //InputComment.commentstring = HttpUtility.HtmlDecode(InputComment.commentstring);
             AllCollegeCourseModel TargetCourse = collection.GetByID(strid);
-            List<Comment> OrginalCommentData = TargetCourse.commentdata.ToList();
+            List<Comment> OrginalCommentData = TargetCourse.commentdata;
 
             if (OrginalCommentData == null)
             {
@@ -76,17 +85,23 @@ namespace WebApiCoursesService.Controllers
             }
             else
             {
+                OrginalCommentData = OrginalCommentData.ToList();
                 OrginalCommentData.Add(InputComment);
                 collection.AddComment(strid, OrginalCommentData);
             }
+
+            User_Comment UserCommentData = new User_Comment { UserID = InputComment.userID, CommentID = InputComment.commentID, CourseID = strid, lastModified = InputComment.lastModified };
+            UserCommentCollection.Insert(UserCommentData);
+
         }
 
         public void PutRanking(string strid, bool isranking, Ranking InputRanking)
         {
-            InputRanking.RankTime = DateTime.Now;
+            InputRanking.rankingID = Guid.NewGuid().ToString();
+            InputRanking.lastModified = DateTime.Now.AddHours(8);
             ObjectId id = new ObjectId(strid);
             AllCollegeCourseModel TargetCourse = collection.GetByID(strid);
-            List<Ranking> OriginalRankingData = TargetCourse.rankingdata.ToList();
+            List<Ranking> OriginalRankingData = TargetCourse.rankingdata;
 
             if (OriginalRankingData == null)
             {
@@ -96,9 +111,14 @@ namespace WebApiCoursesService.Controllers
             }
             else
             {
+                OriginalRankingData = OriginalRankingData.ToList();
                 OriginalRankingData.Add(InputRanking);
                 collection.AddRanking(strid, OriginalRankingData);
             }
+
+
+            User_Ranking UserRankingData = new User_Ranking { UserID = InputRanking.userID, RankingID = InputRanking.rankingID, CourseID = strid, lastModified = InputRanking.lastModified };
+            UserRankingCollection.Insert(UserRankingData);
         }
 
         // DELETE: api/Ntpu/5

@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -15,8 +16,7 @@ namespace WebApiCoursesService.Models
 
         public Repository(string collectionname)
         {
-
-            MongoCredential credential = MongoCredential.CreateCredential("superuniversitycourses", "jeremy4555", "P@ssw0rd");
+            MongoCredential credential = MongoCredential.CreateCredential("superuniversitycourses", ConfigurationManager.AppSettings["MongoUserName"].ToString(), ConfigurationManager.AppSettings["MongoPassword"].ToString());
             MongoClientSettings mongoClientSettings = new MongoClientSettings
             {
                 Server = new MongoServerAddress("ds155841.mlab.com", 55841),
@@ -60,9 +60,9 @@ namespace WebApiCoursesService.Models
         }
 
 
-        public async void Insert(T coursedata)
+        public void Insert(T coursedata)
         {
-            await collection.InsertOneAsync(coursedata);
+            collection.InsertOne(coursedata);
         }
 
         //public void Insert(T coursedata)
@@ -83,9 +83,8 @@ namespace WebApiCoursesService.Models
 
         public async void AddRanking(string strid, List<Ranking> InputRankingData)
         {
-            //ObjectId id = new ObjectId(strid);
-            //var filter = Builders<T>.Filter.Eq("_id", id);
-            var filter = Builders<T>.Filter.Eq("_id", strid);
+            ObjectId id = new ObjectId(strid);
+            var filter = Builders<T>.Filter.Eq("_id", id);
 
             UpdateDefinition<T> update = Builders<T>.Update
                                                     .Set("rankingdata", InputRankingData)
@@ -93,12 +92,12 @@ namespace WebApiCoursesService.Models
             var result = await collection.UpdateOneAsync(filter, update);
         }
 
-        //public async void Update(string strid, T UpdatedCoursedata)
-        //{
-        //    ObjectId id = new ObjectId(strid);
-        //    var filter = Builders<T>.Filter.Eq("_id", id);
-        //    await collection.ReplaceOneAsync(filter, UpdatedCoursedata);
-        //}
+        public async void Update(string strid, T UpdatedCoursedata)
+        {
+            ObjectId id = new ObjectId(strid);
+            var filter = Builders<T>.Filter.Eq("_id", id);
+            await collection.ReplaceOneAsync(filter, UpdatedCoursedata);
+        }
 
         public async void Delete(string strid)
         {

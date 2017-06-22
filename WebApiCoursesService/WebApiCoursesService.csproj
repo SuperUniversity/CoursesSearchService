@@ -195,6 +195,9 @@
     <Compile Include="Controllers\NctuController.cs" />
     <Compile Include="Controllers\NtpuController.cs" />
     <Compile Include="Controllers\NtuController.cs" />
+    <Compile Include="Controllers\UserAdvancedSearchController.cs" />
+    <Compile Include="Controllers\UserCommentController.cs" />
+    <Compile Include="Controllers\UserGeneralSearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -289,6 +292,7 @@
     <Folder Include="ViewModel\" />
     <Folder Include="Views\AllCollege\" />
     <Folder Include="Views\Nctu\" />
+    <Folder Include="Views\UserGeneralSearch\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

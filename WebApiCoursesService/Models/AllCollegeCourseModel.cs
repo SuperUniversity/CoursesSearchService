@@ -29,18 +29,66 @@ namespace WebApiCoursesService.Models
 
     public class Comment
     {
-        public string commentstring { get; set; }
+        public string commentID { get; set; }
+        public string userID { get; set; }
         public string name { get; set; }
         public string email { get; set; }
+        public string commentstring { get; set; }
         public bool anonym { get; set; }
-        public DateTime CommentTime { get; set; }
+        public bool hidden { get; set; }
+        public bool allowEmailContact { get; set; }
+        public int likes { get; set; }
+        public int dislikes { get; set; }
+        public DateTime lastModified { get; set; }
 
     }
     public class Ranking
     {
+        public string rankingID { get; set; }
+        public string userID { get; set; }
         public int deepness { get; set; }
         public int relaxing { get; set; }
         public int sweetness { get; set; }
-        public DateTime RankTime { get; set; }
+        public DateTime lastModified { get; set; }
+    }
+
+    public class User_Ranking
+    {
+        public string UserID { get; set; }
+        public string CourseID { get; set; }
+        public string RankingID { get; set; }
+        public DateTime lastModified { get; set; }
+    }
+
+    public class User_Comment
+    {
+        public string UserID { get; set; }
+        public string CourseID { get; set; }
+        public string CommentID { get; set; }
+        public DateTime lastModified { get; set; }
+    }
+
+    public class User_Favorite
+    {
+        public string UserID { get; set; }
+        public string CourseID { get; set; }
+        public DateTime lastModified { get; set; }
+    }
+
+    public class User_GeneralSearch
+    {
+        public string UserID { get; set; }
+        public string Query { get; set; }
+        public DateTime lastModified { get; set; }
+    }
+
+    public class User_AdvancedSearch
+    {
+        public string UserID { get; set; }
+        public string CourseNameQuery { get; set; }
+        public string TeacherQuery { get; set; }
+        public string DpartmentQuery { get; set; }
+        public string WeekdayQuery { get; set; }
+        public DateTime lastModified { get; set; }
     }
 }
