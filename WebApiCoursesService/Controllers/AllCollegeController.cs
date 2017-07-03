@@ -14,8 +14,8 @@ namespace WebApiCoursesService.Controllers
     public class AllCollegeController : ApiController
     {
         private IRepository<AllCollegeCourseModel> collection = new Repository<AllCollegeCourseModel>("allcourses");
-        private IRepository<User_Comment> UserCommentCollection = new Repository<User_Comment>("userComment");
-        private IRepository<User_Ranking> UserRankingCollection = new Repository<User_Ranking>("userRanking");
+        //private IRepository<User_Comment> UserCommentCollection = new Repository<User_Comment>("userComment");
+        //private IRepository<User_Ranking> UserRankingCollection = new Repository<User_Ranking>("userRanking");
 
         // GET: api/SuccesssCourses
         public IQueryable<AllCollegeCourseModel> GetBySearchAll(string college, string query, string query2 = null, string query3 = null, string exclude = null, int topn = -1)
@@ -68,7 +68,7 @@ namespace WebApiCoursesService.Controllers
         // PUT: api/Ntpu/5
         public void PutComment(string strid, bool iscomment, Comment InputComment)
         {
-            InputComment.commentID = Guid.NewGuid().ToString();
+            //InputComment.commentID = Guid.NewGuid().ToString();
             InputComment.lastModified = DateTime.Now.AddHours(8);
             InputComment.likes = 0;
             InputComment.dislikes = 0;
@@ -81,23 +81,19 @@ namespace WebApiCoursesService.Controllers
             {
                 List<Comment> InputCommentData = new List<Comment>();
                 InputCommentData.Add(InputComment);
-                collection.AddComment(strid, InputCommentData);
+                collection.UpdateComment(strid, InputCommentData);
             }
             else
             {
                 OrginalCommentData = OrginalCommentData.ToList();
                 OrginalCommentData.Add(InputComment);
-                collection.AddComment(strid, OrginalCommentData);
+                collection.UpdateComment(strid, OrginalCommentData);
             }
-
-            User_Comment UserCommentData = new User_Comment { UserID = InputComment.userID, CommentID = InputComment.commentID, CourseID = strid, lastModified = InputComment.lastModified };
-            UserCommentCollection.Insert(UserCommentData);
-
         }
 
         public void PutRanking(string strid, bool isranking, Ranking InputRanking)
         {
-            InputRanking.rankingID = Guid.NewGuid().ToString();
+            //InputRanking.rankingID = Guid.NewGuid().ToString();
             InputRanking.lastModified = DateTime.Now.AddHours(8);
             ObjectId id = new ObjectId(strid);
             AllCollegeCourseModel TargetCourse = collection.GetByID(strid);
@@ -107,18 +103,104 @@ namespace WebApiCoursesService.Controllers
             {
                 List<Ranking> NewRankingData = new List<Ranking>();
                 NewRankingData.Add(InputRanking);
-                collection.AddRanking(strid, NewRankingData);
+                collection.UpdateRanking(strid, NewRankingData);
             }
             else
             {
                 OriginalRankingData = OriginalRankingData.ToList();
                 OriginalRankingData.Add(InputRanking);
-                collection.AddRanking(strid, OriginalRankingData);
+                collection.UpdateRanking(strid, OriginalRankingData);
             }
+        }
+
+        public void PutQuestion(string strid, bool isquestion, Question InputQuestion)
+        {
+            //InputComment.commentID = Guid.NewGuid().ToString();
+            InputQuestion.lastModified = DateTime.Now.AddHours(8);
+            InputQuestion.hidden = false;
+
+            AllCollegeCourseModel TargetCourse = collection.GetByID(strid);
+            List<Question> OrginalQuestionData = TargetCourse.questiondata;
+
+            if (OrginalQuestionData == null)
+            {
+                List<Question> InputQuestionData = new List<Question>();
+                InputQuestionData.Add(InputQuestion);
+                collection.UpdateQuestion(strid, InputQuestionData);
+            }
+            else
+            {
+                OrginalQuestionData = OrginalQuestionData.ToList();
+                OrginalQuestionData.Add(InputQuestion);
+                collection.UpdateQuestion(strid, OrginalQuestionData);
+            }
+        }
+
+        public void PutResponse(string strid, string questionid, bool isreponse, Response InputResponse)
+        {
+            //InputComment.commentID = Guid.NewGuid().ToString();
+            InputResponse.lastModified = DateTime.Now.AddHours(8);
+            InputResponse.hidden = false;
+
+            AllCollegeCourseModel TargetCourse = collection.GetByID(strid);
+            Question TargetQuestion = TargetCourse.questiondata.Where(q => q.questionID == questionid).FirstOrDefault();
+            List<Response> OriginalResponseData = TargetQuestion.responsedata;
+
+            if (OriginalResponseData == null)
+            {
+                List<Response> InputResponseData = new List<Response>();
+                InputResponseData.Add(InputResponse);
+                TargetCourse.questiondata.Where(q => q.questionID == questionid).FirstOrDefault().responsedata = InputResponseData;
+                collection.UpdateQuestion(strid, TargetCourse.questiondata);
+            }
+            else
+            {
+                OriginalResponseData = OriginalResponseData.ToList();
+                OriginalResponseData.Add(InputResponse);
+                TargetCourse.questiondata.Where(q => q.questionID == questionid).FirstOrDefault().responsedata = OriginalResponseData;
+                collection.UpdateQuestion(strid, TargetCourse.questiondata);
+            }
+        }
+
+        //public void PutFavorite(string strid,bool isfavorite, string userId)
+        //{
+
+        //    AllCollegeCourseModel TargetCourse = collection.GetByID(strid);
+        //    TargetCourse.favoritedata.Add(userId);
+        //}
+
+        //public void DeleteFavorite(string strid, bool isfavorite, string userId)
+        //{
+        //    AllCollegeCourseModel TargetCourse = collection.GetByID(strid);
+        //    TargetCourse.favoritedata.Remove(userId);
+        //}
+
+        // Delete: api/Ntpu/5
+        public void DeleteComment(string strid, string commentId)
+        {
+            //InputComment.commentstring = HttpUtility.HtmlDecode(InputComment.commentstring);
+            AllCollegeCourseModel TargetCourse = collection.GetByID(strid);
+            Comment TargetComment = (from c in TargetCourse.commentdata
+                                     where c.commentID == commentId
+                                     select c).FirstOrDefault();
+            TargetCourse.commentdata.Remove(TargetComment);
+            var updatedCommentData = TargetCourse.commentdata;
+            collection.UpdateComment(strid, updatedCommentData);
+        }
 
 
-            User_Ranking UserRankingData = new User_Ranking { UserID = InputRanking.userID, RankingID = InputRanking.rankingID, CourseID = strid, lastModified = InputRanking.lastModified };
-            UserRankingCollection.Insert(UserRankingData);
+        // Delete: api/Ntpu/5
+        public void DeleteRnking(string strid, string rankingId)
+        {
+            //InputComment.commentstring = HttpUtility.HtmlDecode(InputComment.commentstring);
+            AllCollegeCourseModel TargetCourse = collection.GetByID(strid);
+            Ranking TargetRanking = (from r in TargetCourse.rankingdata
+                                     where r.rankingID == rankingId
+                                     select r).FirstOrDefault();
+            TargetCourse.rankingdata.Remove(TargetRanking);
+            var updatedRankingData = TargetCourse.rankingdata;
+
+            collection.UpdateRanking(strid, updatedRankingData);
         }
 
         // DELETE: api/Ntpu/5

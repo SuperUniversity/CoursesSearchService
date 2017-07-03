@@ -178,3 +178,4 @@ D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\WebApiCourses
 D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\WebApiCoursesService\obj\Release\WebApiCoursesService.csprojResolveAssemblyReference.cache
 D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\WebApiCoursesService\obj\Release\WebApiCoursesService.dll
 D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\WebApiCoursesService\obj\Release\WebApiCoursesService.pdb
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\WebApiCoursesService\obj\Release\WebApiCoursesService.csproj.CoreCompileInputs.cache

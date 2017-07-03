@@ -70,7 +70,7 @@ namespace WebApiCoursesService.Models
         //    collection.InsertOne(coursedata);
         //}
 
-        public async void AddComment(string strid, List<Comment> InputCommentData)
+        public void UpdateComment(string strid, List<Comment> InputCommentData)
         {
             ObjectId id = new ObjectId(strid);
             var filter = Builders<T>.Filter.Eq("_id", id);
@@ -78,10 +78,10 @@ namespace WebApiCoursesService.Models
             UpdateDefinition<T> update = Builders<T>.Update
                                                     .Set("commentdata", InputCommentData)
                                                     .CurrentDate("lastModified");
-            var result = await collection.UpdateOneAsync(filter, update);
+            var result = collection.UpdateOneAsync(filter, update);
         }
 
-        public async void AddRanking(string strid, List<Ranking> InputRankingData)
+        public void UpdateRanking(string strid, List<Ranking> InputRankingData)
         {
             ObjectId id = new ObjectId(strid);
             var filter = Builders<T>.Filter.Eq("_id", id);
@@ -89,14 +89,25 @@ namespace WebApiCoursesService.Models
             UpdateDefinition<T> update = Builders<T>.Update
                                                     .Set("rankingdata", InputRankingData)
                                                     .CurrentDate("lastModified");
-            var result = await collection.UpdateOneAsync(filter, update);
+            var result = collection.UpdateOneAsync(filter, update);
         }
 
-        public async void Update(string strid, T UpdatedCoursedata)
+        public void UpdateQuestion(string strid, List<Question> InputQuestionData)
         {
             ObjectId id = new ObjectId(strid);
             var filter = Builders<T>.Filter.Eq("_id", id);
-            await collection.ReplaceOneAsync(filter, UpdatedCoursedata);
+
+            UpdateDefinition<T> update = Builders<T>.Update
+                                                    .Set("questiondata", InputQuestionData)
+                                                    .CurrentDate("lastModified");
+            var result = collection.UpdateOneAsync(filter, update);
+        }
+
+        public void Update(string strid, T UpdatedCoursedata)
+        {
+            ObjectId id = new ObjectId(strid);
+            var filter = Builders<T>.Filter.Eq("_id", id);
+            collection.ReplaceOneAsync(filter, UpdatedCoursedata);
         }
 
         public async void Delete(string strid)

@@ -74,12 +74,12 @@ namespace WebApiCoursesService.Controllers
             {
                 List<Comment> InputCommentData = new List<Comment>();
                 InputCommentData.Add(InputComment);
-                collection.AddComment(strid, InputCommentData);
+                collection.UpdateComment(strid, InputCommentData);
             }
             else
             {
                 OrginalCommentData.Add(InputComment);
-                collection.AddComment(strid, OrginalCommentData);
+                collection.UpdateComment(strid, OrginalCommentData);
             }
         }
 
@@ -93,12 +93,12 @@ namespace WebApiCoursesService.Controllers
             {
                 List<Ranking> NewRankingData = new List<Ranking>();
                 NewRankingData.Add(InputRanking);
-                collection.AddRanking(strid, NewRankingData);
+                collection.UpdateRanking(strid, NewRankingData);
             }
             else
             {
                 OriginalRankingData.Add(InputRanking);
-                collection.AddRanking(strid, OriginalRankingData);
+                collection.UpdateRanking(strid, OriginalRankingData);
             }
         }
 
