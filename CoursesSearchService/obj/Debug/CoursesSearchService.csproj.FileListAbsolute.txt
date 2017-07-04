@@ -24,3 +24,4 @@ D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearch
 D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\obj\Debug\CoursesSearchService.csprojResolveAssemblyReference.cache
 D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\obj\Debug\CoursesSearchService.dll
 D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\obj\Debug\CoursesSearchService.pdb
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CoursesSearchService\obj\Debug\CoursesSearchService.csproj.CoreCompileInputs.cache

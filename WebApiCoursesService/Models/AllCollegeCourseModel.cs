@@ -70,7 +70,7 @@ namespace WebApiCoursesService.Models
 
     public class Response
     {
-        public string reponseID { get; set; }
+        public string responseID { get; set; }
         public string userID { get; set; }
         public string name { get; set; }
         public string email { get; set; }

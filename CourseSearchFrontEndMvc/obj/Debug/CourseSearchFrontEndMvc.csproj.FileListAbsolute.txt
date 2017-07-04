@@ -146,3 +146,4 @@ D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CourseSearchF
 D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CourseSearchFrontEndMvc\obj\Debug\CourseSearchFrontEndMvc.csprojResolveAssemblyReference.cache
 D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CourseSearchFrontEndMvc\obj\Debug\CourseSearchFrontEndMvc.dll
 D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CourseSearchFrontEndMvc\obj\Debug\CourseSearchFrontEndMvc.pdb
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\CourseSearchFrontEndMvc\obj\Debug\CourseSearchFrontEndMvc.csproj.CoreCompileInputs.cache

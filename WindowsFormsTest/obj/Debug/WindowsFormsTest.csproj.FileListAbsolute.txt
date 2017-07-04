@@ -130,3 +130,4 @@ D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\WindowsFormsT
 D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\WindowsFormsTest\bin\Debug\roslyn\vbc.rsp
 D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\WindowsFormsTest\bin\Debug\roslyn\VBCSCompiler.exe
 D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\WindowsFormsTest\bin\Debug\roslyn\VBCSCompiler.exe.config
+D:\Google 雲端硬碟\MIST114\SpecialProject\CoursesSearchService\WindowsFormsTest\obj\Debug\WindowsFormsTest.csproj.CoreCompileInputs.cache
