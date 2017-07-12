@@ -18,23 +18,30 @@ namespace WebApiCoursesService.Controllers
         //private IRepository<User_Ranking> UserRankingCollection = new Repository<User_Ranking>("userRanking");
 
         // GET: api/SuccesssCourses
-        public IQueryable<AllCollegeCourseModel> GetBySearchAll(string college, string query, string query2 = null, string query3 = null, string exclude = null, int topn = -1)
+        public IQueryable<AllCollegeCourseModel> GetBySearchAll(string college, string query, string semester=null, string query2 = null, string query3 = null, string exclude = null, int topn = -1)
         {
+            
             var AllCollection = collection.GetAll()
                                     .Where(c => c.College == college)
                                     .Where(c => c.CourseName != null && c.Teacher != null && c.Major != null);
+
+            if(semester != null)
+            {
+                AllCollection = AllCollection.Where(c => c.Semester == semester);
+            }
 
             var result = AllCollection.Where(c => c.CourseName.Contains(query) || c.Teacher.Contains(query) || c.Major.Contains(query));
             result = (query2 != null) ? result.Where(c => c.CourseName.Contains(query2) || c.Teacher.Contains(query2) || c.Major.Contains(query2)) : result;
             result = (query3 != null) ? result.Where(c => c.CourseName.Contains(query3) || c.Teacher.Contains(query3) || c.Major.Contains(query3)) : result;
             result = (exclude != null) ? result.Where(c => !c.CourseName.Contains(exclude) && !c.Teacher.Contains(exclude) && !c.Major.Contains(exclude)) : result;
 
-            result = CourseUtl.TopnFilter<AllCollegeCourseModel>(result.AsQueryable< AllCollegeCourseModel>(), topn);
+
+            result = CourseUtl.TopnFilter<AllCollegeCourseModel>(result.AsQueryable<AllCollegeCourseModel>(), topn);
 
             return result.AsQueryable< AllCollegeCourseModel>();
         }
 
-        public IQueryable<AllCollegeCourseModel> GetBySearchEach(string college, string coursename = null, string teachername = null, string department = null, string weekday = null, int topn = -1)
+        public IQueryable<AllCollegeCourseModel> GetBySearchEach(string college, string semester = null, string coursename = null, string teachername = null, string department = null, string weekday = null, int topn = -1)
         {
             var AllCollection = collection.GetAll()
                                     .Where(c => c.College == college)
@@ -43,12 +50,19 @@ namespace WebApiCoursesService.Controllers
                                     .Where(c => (department != null) ? c.Major != null : true)
                                     .Where(c => (weekday != null) ? c.TimeAndClassroom != null : true);
 
+            if (semester != null)
+            {
+                AllCollection = AllCollection.Where(c => c.Semester == semester);
+            }
+
+
             var result = AllCollection.Where(c => (coursename != null) ? c.CourseName.Contains(coursename) : true)
                                     .Where(c => (teachername != null) ? c.Teacher.Contains(teachername) : true)
                                     .Where(c => (department != null) ? c.Major.Contains(department) : true)
                                     .Where(c => (weekday != null) ? c.TimeAndClassroom.Contains(weekday) : true);
 
             result = CourseUtl.TopnFilter<AllCollegeCourseModel>(result.AsQueryable<AllCollegeCourseModel>(), topn);
+
 
             return result.AsQueryable<AllCollegeCourseModel>();
         }

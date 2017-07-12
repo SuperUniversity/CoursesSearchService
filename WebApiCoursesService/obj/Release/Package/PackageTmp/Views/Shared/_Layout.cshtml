@@ -29,12 +29,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("CourseSearch Web API", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("臺灣大學課程檢索API", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Introduction", "Index", "Help", new { area = "" }, null)</li>
+                    @*<li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>*@
+                    @*<li>@Html.ActionLink("Introduction", "Index", "Help", new { area = "" }, null)</li>*@
                 </ul>
             </div>
         </div>
@@ -44,7 +44,7 @@
         <hr />
     </div>
     <footer>
-        <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+        <p>&copy; @DateTime.Now.Year - 臺灣大學課程檢索API</p>
     </footer>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"
             integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="

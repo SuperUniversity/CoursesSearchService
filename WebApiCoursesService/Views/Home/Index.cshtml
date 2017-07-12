@@ -5,17 +5,136 @@
 
 }
 <div class="jumbotron">
-    <h1>University Courses Search Engine</h1>
-    <p class="lead">I collect all courses from three universities' websites to build this api, to search course you can use query string after the host. You can freely search by coursename, teachername, department and weekday in three domains(Ntu, Ntpu and Ncku).</p>
-    <p>@*<a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a>*@</p>
-</div>
-<div class="col-md-12">
-    <img src="~/Images/wordclouds/all200.jpg" class="img-responsive" />
-    @*<img src="~/Images/wordclouds/all300.jpg" class="img-responsive" />*@
+    <h1>臺灣大學課程檢索API</h1>
+    <p class="lead">這個API目前收錄了臺灣五所大學的課程，包含東吳大學(106-1學年)、臺北大學(105-2)、臺灣大學(105-2)、交通大學(105-2, 106-1)、成功大學(105-2, 106-1)</p>
 </div>
 <div class="row">
+    <h2>一、新介面(含上述所有課程資料)</h2>
+    <h3>1. Domain + Controller: https://taiwanuniversitiescourses.azurewebsites.net/api/AllCollege </h3>
+    @*<img src="~/Images/wordclouds/all200.jpg" class="img-responsive" />*@
+    @*<img src="~/Images/wordclouds/all300.jpg" class="img-responsive" />*@
+    <h3>2. 欄位</h3>
+    <table class="table" >
+        <tbody>
+            <tr>
+                <th>_id(MongoDB自動產生)</th>
+                <td>593f81ea99eff64d00c36033</td>
+            </tr>
+            <tr>
+                <th>Identity(學校提供)</th>
+                <td>U3070</td>
+            </tr>
+            <tr>
+                <th>College</th>
+                <td>臺北大學</td>
+            </tr>
+            <tr>
+                <th>Semester</th>
+                <td>105-2</td>
+            </tr>
+            <tr>
+                <th>Major</th>
+                <td>財政系</td>
+            </tr>
+            <tr>
+                <th>CourseName</th>
+                <td>計量經濟學Econometrics</td>
+            </tr>
+            <tr>
+                <th>Teacher</th>
+                <td>楊子菡</td>
+            </tr>
+            <tr>
+                <th>TimeAndClassroom</th>
+                <td>每週四3~4,公2F06</td>
+            </tr>
+            <tr>
+                <th>Credit</th>
+                <td>2</td>
+            </tr>
+            <tr>
+                <th>Required</th>
+                <td>財政系3(選), 財政系4(選)</td>
+            </tr>
+            <tr>
+                <th>MaxNum</th>
+                <td>25</td>
+            </tr>
+            <tr>
+                <th>Limitation</th>
+                <td>None</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>[備註] 須修畢統計學。</td>
+            </tr>
+            <tr>
+                <td colspan="2" ><strong>**********以下為與<a href="https://fouryears.azurewebsites.net/">前端網頁</a>使用者互動的資料**********</strong></td>
+            </tr>
+            <tr>
+                <th>commentdata</th>
+                <td>[{'hidden': False, 'lastModified': '2017-06-20...</td>
+            </tr>
+            <tr>
+                <th>rankingdata</th>
+                <td>[{'lastModified': '2017-06-20T11:34:56.062Z', ...</td>
+            </tr>
+            <tr>
+                <th>questiondata</th>
+                <td>NaN</td>
+            </tr>
+            <tr>
+                <th>lastModified</th>
+                <td>2017-06-20T03:35:39.989Z</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>3. <a href="~/api/AllCollege?college=臺北大學&query=經濟&semester=105-2&query2=陳&query3=系&exclude孝&topn=10">一般檢索(含課程名稱、老師以及開課系所)</a></h3>
+    <table style="font-size:16px;" class="table">
+        <thead>
+            <tr>
+                <th>參數</th><th>選項或解釋</th><th>預設值</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>college</td><td>臺北大學、臺灣大學、東吳大學、交通大學、成功大學</td><td>必要項無預設值</td></tr>
+            <tr><td>query</td><td>你想檢索的關鍵字(將檢索課程名稱、老師以及開課系所欄位)</td><td>必要項無預設值</td></tr>
+            <tr><td>semester</td><td>105-2, 106-1</td><td>null(不限學期)</td></tr>
+            <tr><td>query2</td><td>你想檢索的第二個關鍵字，與query是AND的關係</td><td>null(不再限縮第二個關鍵字)</td></tr>
+            <tr><td>query3</td><td>你想檢索的第三個，與query, query2是AND的關係</td><td>null(不再限縮第三個關鍵字)</td></tr>
+            <tr><td>exclude</td><td>排除具有exclude關鍵字的資料(課程名稱、老師以及開課系所欄位具有該關鍵字的資料都會被排除)</td><td>null(不排除任何資料)</td></tr>
+            <tr><td>topn</td><td>僅回傳前topn筆資料</td><td>-1(回傳全部資料)</td></tr>
+        </tbody>
+    </table>
+
+    <h3>4. <a href="~/api/AllCollege?college=臺北大學&semester=105-2&coursename=經濟&teachername=陳&department=經濟&weekday=三&topn=10">進階檢索(含課程名稱、老師、開課系所以及時間教室)</a></h3>
+    <table style="font-size:16px;" class="table">
+        <thead>
+            <tr>
+                <th>參數</th>
+                <th>選項或解釋</th>
+                <th>預設值</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>college</td><td>臺北大學、臺灣大學、東吳大學、交通大學、成功大學</td><td>必要項無預設值</td></tr>
+            <tr><td>semester</td><td>105-2, 106-1</td><td>null(不限學期)</td></tr>
+            <tr><td>coursename</td><td>課程名稱包含coursename的資料</td><td>null(不限制)</td></tr>
+            <tr><td>teachername</td><td>課程名稱包含teachername的資料</td><td>null(不限制)</td></tr>
+            <tr><td>department</td><td>課程名稱包含department的資料</td><td>null(不限制)</td></tr>
+            <tr><td>weekday</td><td> 一、二、三、四、五、六、日</td><td>null(每一天)</td></tr>
+            <tr><td>topn</td><td>僅回傳前topn筆資料</td><td>-1(回傳全部資料)</td></tr>
+        </tbody>
+    </table>
+
+
+</div>
+<div class="row">
+    <h2>二、舊介面(含105-2年度臺灣大學、交通大學、成功大學、臺北大學的課程資料)</h2>
+    <h3>Domain + Controller: https://taiwanuniversitiescourses.azurewebsites.net/api/{學校英文名} </h3>
     <div class="col-md-4">
-        <h2>NTU</h2>
+        <h3>NTU</h3>
         <img src="~/Images/wordclouds/ntu.jpg" class="img-responsive"/>
         <h4><a href="~/api/Ntu">All courses</a></h4>
         <h4><a href="~/api/Ntu?query=稅">Search by all columns</a></h4>
@@ -26,7 +145,7 @@
         @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>*@
     </div>
     <div class="col-md-4">
-        <h2>NTPU</h2>
+        <h3>NTPU</h3>
         <img src="~/Images/wordclouds/ntpu.jpg" class="img-responsive" />
         <h4><a href="~/api/Ntpu">All courses</a></h4>
         <h4><a href="~/api/Ntpu?query=稅">Search by all columns</a></h4>
@@ -39,7 +158,7 @@
         <p>@*<a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a>*@</p>
     </div>
     <div class="col-md-4">
-        <h2>NCKU</h2>
+        <h3>NCKU</h3>
         <img src="~/Images/wordclouds/ncku.jpg" class="img-responsive" />
         <h4><a href="~/api/Ncku">All courses</a></h4>
         <h4><a href="~/api/Ncku?query=稅">Search by all columns</a></h4>
@@ -51,7 +170,7 @@
         @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>*@
     </div>
     <div class="col-md-4">
-        <h2>NCTU</h2>
+        <h3>NCTU</h3>
         @*TODO THis img should modified*@
         <img src="~/Images/wordclouds/ncku.jpg" class="img-responsive" />
         <h4><a href="~/api/Nctu">All courses</a></h4>
